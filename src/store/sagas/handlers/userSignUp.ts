@@ -7,7 +7,7 @@ import {
   storeUserLoginSuccess,
 } from '../../actions/userLogin';
 import { call, put } from 'redux-saga/effects';
-import { axiosUserGoogleLogin, axiosUserLogin, axiosUserSignUp } from '../requests/user';
+import { axiosUserGoogleLogin, axiosUserLogin, axiosUserSignUp } from '../../../requests/user';
 import {
   REQUEST_USER_SIGNUP,
   storeUserSignUpFail,

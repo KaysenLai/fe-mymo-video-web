@@ -8,7 +8,7 @@ import {
   storeUserLoginSuccess,
 } from '../../actions/userLogin';
 import { call, put } from 'redux-saga/effects';
-import { axiosUserGoogleLogin, axiosUserLogin } from '../requests/user';
+import { axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
 
 export function* handleUserLogin(action: Action): any {
   switch (action.type) {

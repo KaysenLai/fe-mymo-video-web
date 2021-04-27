@@ -1,0 +1,8 @@
+// override the background color in input after autofill in SignUpPage and SignInPage
+input:-webkit-autofill { box-shadow: 0 0 0 1000px #222222 inset !important;}
+
+// override the size of Google Icon in SignInPage
+#root .anticon.anticon-google {
+  margin-top: -2px;
+  font-size: 17px;
+}

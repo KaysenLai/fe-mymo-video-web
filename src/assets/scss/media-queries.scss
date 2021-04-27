@@ -1,0 +1,39 @@
+$xs: 0px;
+$sm: 600px;
+$md: 960px;
+$lg: 1280px;
+$xl: 1920px;
+
+@mixin mq($canvas) {
+  @if $canvas==xs {
+	@media screen and (max-width: $xs) {
+	  @content;
+	}
+  }
+  @else if $canvas==sm {
+	@media screen and (max-width: $sm) {
+	  @content;
+	}
+  }
+  @else if $canvas==md {
+	@media screen and (max-width: $md) {
+	  @content;
+	}
+  }
+  @else if $canvas==lg {
+	@media screen and (max-width: $lg) {
+	  @content;
+	}
+  }
+  @else if $canvas==xl {
+	@media screen and (max-width: $xl) {
+	  @content;
+	}
+  }
+
+  @else {
+	@media screen and (max-width: $canvas) {
+	  @content;
+	}
+  }
+}

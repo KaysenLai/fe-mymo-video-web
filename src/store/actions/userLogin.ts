@@ -7,6 +7,7 @@ export const STORE_IS_OAUTH = 'STORE_IS_OAUTH';
 export const STORE_USER_LOGIN_SUCCESS = 'STORE_USER_LOGIN_SUCCESS';
 export const STORE_USER_LOGIN_FAIL = 'STORE_USER_LOGIN_FAIL';
 export const STORE_USER_LOGOUT = 'STORE_USER_LOGOUT';
+export const STORE_USER_LOGOUT_REDIRECT = 'STORE_USER_LOGOUT_REDIRECT';
 
 export const requestUserLogin = (loginInfo: LoginInfo): Action<LoginInfo> => ({
   type: REQUEST_USER_LOGIN,
@@ -40,4 +41,8 @@ export const storeUserLoginFail = (errorMsg: string): Action<string> => ({
 
 export const storeUserLogout = (): Action => ({
   type: STORE_USER_LOGOUT,
+});
+
+export const storeUserLogoutRedirect = (): Action<string> => ({
+  type: STORE_USER_LOGOUT_REDIRECT,
 });

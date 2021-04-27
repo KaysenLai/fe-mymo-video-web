@@ -1,18 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Staatliches&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
-@import "variables";
-@import "media-queries";
-@import "./button";
-@import "./override";
+@import 'variables';
+@import 'media-queries';
+@import './button';
+@import './override';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', 'Montserrat',sans-serif;
+  font-family: 'Roboto', 'Montserrat', sans-serif;
 
-  h2, h3, h4, h5, h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: normal;
   }
 
@@ -20,7 +24,3 @@
     text-decoration: none;
   }
 }
-
-
-
-

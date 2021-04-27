@@ -1,100 +1,93 @@
-import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import { Link } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import Divider from "@material-ui/core/Divider";
-import { makeStyles } from "@material-ui/core/styles";
-import randomImg from "../assets/randomImg";
-import {
-  emailErrorText,
-  validateEmail,
-  passwordEmptyText,
-} from "../utils/validation";
-import { GoogleOutlined } from "@ant-design/icons";
-import { GoogleLogin } from "react-google-login";
-import logo from "../assets/img/MYMO_logo.svg";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+import randomImg from '../assets/randomImg';
+import { emailErrorText, validateEmail, passwordEmptyText } from '../utils/validation';
+import { GoogleOutlined } from '@ant-design/icons';
+import { GoogleLogin } from 'react-google-login';
+import logo from '../assets/img/MYMO_logo.svg';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   requestGoogleUserLogin,
   requestUserLogin,
   storeUserLoginFail,
   storeUserLoginIsLoading,
-} from "../store/actions/userLogin";
-import { State } from "../types/state";
-import MymoMessage from "../components/MymoMessage";
-import Loading from "../components/Loading";
+} from '../store/actions/userLogin';
+import { State } from '../types/state';
+import MymoMessage from '../components/MymoMessage';
+import Loading from '../components/Loading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: '100vh',
   },
   image: {
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    backgroundRepeat: 'no-repeat',
+    backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
   box: {
     margin: theme.spacing(8, 0),
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up('xs')]: {
       margin: theme.spacing(8, 4),
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       margin: theme.spacing(8, 4),
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       margin: theme.spacing(8, 6),
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up('lg')]: {
       margin: theme.spacing(8, 8),
     },
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%",
+    width: '100%',
     marginTop: theme.spacing(4),
   },
   button: {
-    marginTop: "20px",
+    marginTop: '20px',
   },
   divider: {
-    width: "100%",
-    marginTop: "20px",
+    width: '100%',
+    marginTop: '20px',
   },
   logo: {
-    width: "200px",
+    width: '200px',
   },
   link: {
-    width: "100%",
+    width: '100%',
   },
   googleBtnWrap: {
-    width: "100%",
+    width: '100%',
   },
 }));
 
 const SignInPage: React.FC = (props: any) => {
   const { history, location } = props;
   const classes = useStyles();
-  const [randomImgUrl, setRandomImgUrl] = useState("");
-  if (randomImgUrl === "") setRandomImgUrl(randomImg());
+  const [randomImgUrl, setRandomImgUrl] = useState('');
+  if (randomImgUrl === '') setRandomImgUrl(randomImg());
   const [email, setEmail] = useState({
-    value: "",
+    value: '',
     error: false,
-    helperText: "",
+    helperText: '',
   });
   const [password, setPassword] = useState({
-    value: "",
+    value: '',
     error: false,
-    helperText: "",
+    helperText: '',
   });
-  const googleAuthKey = process.env.REACT_APP_GOOGLE_AUTH || "";
+  const googleAuthKey = process.env.REACT_APP_GOOGLE_AUTH || '';
   const dispatch = useDispatch();
   const userLogin = useSelector((state: State) => state.userLogin);
   const { isLoading, errorMessage, userInfo, isAuthenticated } = userLogin;
@@ -105,17 +98,17 @@ const SignInPage: React.FC = (props: any) => {
     if (previousPath) {
       history.push(previousPath);
     } else {
-      history.push("/");
+      history.push('/');
     }
   }, [history, userInfo]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (email.value === "") {
+    if (email.value === '') {
       setEmail({ ...email, error: true, helperText: emailErrorText });
       return;
     }
-    if (password.value === "") {
+    if (password.value === '') {
       setPassword({ ...password, error: true, helperText: passwordEmptyText });
       return;
     }
@@ -133,22 +126,20 @@ const SignInPage: React.FC = (props: any) => {
 
   const handleEmailOnchange = (e: any) => {
     const inputEmail = e.target.value;
-    if (validateEmail(inputEmail))
-      setEmail({ value: inputEmail, error: false, helperText: "" });
-    else
-      setEmail({ value: inputEmail, error: true, helperText: emailErrorText });
+    if (validateEmail(inputEmail)) setEmail({ value: inputEmail, error: false, helperText: '' });
+    else setEmail({ value: inputEmail, error: true, helperText: emailErrorText });
   };
 
   const handlePasswordOnchange = (e: any) => {
     const inputPassword = e.target.value;
-    if (inputPassword === "") {
+    if (inputPassword === '') {
       setPassword({
         value: inputPassword,
         error: true,
         helperText: passwordEmptyText,
       });
     }
-    setPassword({ value: inputPassword, error: false, helperText: "" });
+    setPassword({ value: inputPassword, error: false, helperText: '' });
   };
 
   const handleGoogleSuccess = async (res: any) => {
@@ -171,9 +162,7 @@ const SignInPage: React.FC = (props: any) => {
   return (
     <>
       <Loading isLoading={isLoading} />
-      {errorMessage !== "" && (
-        <MymoMessage msg={errorMessage} severity="error" />
-      )}
+      {errorMessage !== '' && <MymoMessage msg={errorMessage} severity="error" />}
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12} sm={8} md={6} lg={4}>
           <Box className={classes.box}>
@@ -181,12 +170,7 @@ const SignInPage: React.FC = (props: any) => {
               <img className={classes.logo} src={logo} alt="mymo logo" />
             </Link>
 
-            <form
-              className={classes.form}
-              noValidate
-              method="post"
-              onSubmit={handleSubmit}
-            >
+            <form className={classes.form} noValidate method="post" onSubmit={handleSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"

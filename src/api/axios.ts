@@ -1,15 +1,13 @@
-import axios from "axios";
-import getLocalUser from "../utils/getLocalUser";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { storeUserLogout } from "../store/actions/userLogin";
+import axios from 'axios';
+import getLocalUser from '../utils/getLocalUser';
+import store from '../store/store';
+import { storeUserLogoutRedirect } from '../store/actions/userLogin';
 
 const authAxios = axios.create();
 authAxios.interceptors.request.use((req) => {
   const localUser = getLocalUser();
-  const history = useHistory();
   if (!localUser) {
-    history.push("/signin");
+    store.dispatch(storeUserLogoutRedirect());
     return req;
   }
   const token = localUser.userInfo.token;
@@ -27,31 +25,19 @@ authAxios.interceptors.response.use(
     }
   },
   (error) => {
-    const history = useHistory();
-    const dispatch = useDispatch();
-
-    if (error.response.status) {
-      switch (error.response.status) {
-        case 401:
-          history.push("/login");
-          break;
-        case 403:
-          sessionStorage.removeItem("user");
-          dispatch(storeUserLogout());
-          history.push("/login");
-          break;
-        default:
-      }
+    const status = error.response.status;
+    if (status === 401 || status === 403) {
+      store.dispatch(storeUserLogoutRedirect());
       return Promise.reject(error.response);
     }
-  }
+  },
 );
 
 const userIdAxios = axios.create();
 userIdAxios.interceptors.request.use((req) => {
   const localUser = getLocalUser();
   if (!localUser) return req;
-  req.headers["x-userid"] = localUser.userInfo._id;
+  req.headers['x-userid'] = localUser.userInfo._id;
   return req;
 });
 

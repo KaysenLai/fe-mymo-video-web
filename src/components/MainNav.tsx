@@ -74,7 +74,6 @@ const LogoutButtons = ({ userInfo }: { userInfo: UserInfo }) => {
   const handleLogout = () => {
     dispatch(storeUserLogout());
     history.push('/');
-    sessionStorage.removeItem('user');
   };
 
   return (

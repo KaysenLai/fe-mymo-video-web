@@ -1,12 +1,12 @@
 .btn-grey.MuiButton-root {
   background-color: #373737;
   color: #d6d6d6;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   font-size: 16px;
   text-transform: unset;
   &:hover {
-	color: #efefef;
-	background-color: #404040;
+    color: #efefef;
+    background-color: #404040;
   }
 }
 
@@ -17,48 +17,47 @@ $ghost-btn-border: 2px;
   height: min-content;
   display: inline-block;
   .MuiButton-label {
-	font-family: 'Poppins', 'Roboto', serif !important;
-	letter-spacing: 0.12em;
-	white-space: nowrap;
+    font-family: 'Poppins', 'Roboto', serif !important;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
   }
   .MuiButton-root {
-	border-radius: 4px;
-	border: #{$ghost-btn-border} solid white;
-	text-transform: unset;
-	.MuiTouchRipple-root {
-	  width: calc(100% + #{$ghost-btn-border} * 2);
-	  height: calc(100% + #{$ghost-btn-border} * 2);
-	  left: -$ghost-btn-border;
-	  top: -$ghost-btn-border;
-	}
-	&::before {
-	  content: '';
-	  display: block;
-	  width: calc(100% + #{$ghost-btn-border} * 2);
-	  height: calc(100% + #{$ghost-btn-border} * 2);
-	  position: absolute;
-	  z-index: -1;
-	  left: -$ghost-btn-border;
-	  top: -$ghost-btn-border;
-	  bottom: 0;
-	  right: 0;
-	  opacity: 0;
-	  border-radius: 4px;
-	  background: linear-gradient(305.78deg, #6500E0 0%, #B421D9 49.83%, #D43F8D 100%);
-	  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
-	}
-	&:hover {
-	  background-color: unset;
-	}
+    border-radius: 4px;
+    border: #{$ghost-btn-border} solid white;
+    text-transform: unset;
+    .MuiTouchRipple-root {
+      width: calc(100% + #{$ghost-btn-border} * 2);
+      height: calc(100% + #{$ghost-btn-border} * 2);
+      left: -$ghost-btn-border;
+      top: -$ghost-btn-border;
+    }
+    &::before {
+      content: '';
+      display: block;
+      width: calc(100% + #{$ghost-btn-border} * 2);
+      height: calc(100% + #{$ghost-btn-border} * 2);
+      position: absolute;
+      z-index: -1;
+      left: -$ghost-btn-border;
+      top: -$ghost-btn-border;
+      bottom: 0;
+      right: 0;
+      opacity: 0;
+      border-radius: 4px;
+      background: linear-gradient(305.78deg, #6500e0 0%, #b421d9 49.83%, #d43f8d 100%);
+      transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    }
+    &:hover {
+      background-color: unset;
+    }
   }
 
   &:hover {
-	.MuiButton-root {
-	  border: #{$ghost-btn-border} solid transparent;
-	  &::before {
-		opacity: 1;
-	  }
-	}
+    .MuiButton-root {
+      border: #{$ghost-btn-border} solid transparent;
+      &::before {
+        opacity: 1;
+      }
+    }
   }
 }
-

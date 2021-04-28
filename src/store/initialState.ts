@@ -8,7 +8,7 @@ const initialSate = {
   },
   userSignUp: {
     isLoading: false,
-    errorMessage: localStorage.getItem('logInErrorMsg'),
+    errorMessage: '',
   },
 };
 

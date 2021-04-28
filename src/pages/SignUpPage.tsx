@@ -125,7 +125,7 @@ const SignUpPage: React.FC = (props: any) => {
 
       dispatch(requestUserSignUp(signUpInfo));
     };
-    setTimeout(callback, 200);
+    setTimeout(callback, 500);
   };
 
   const handleFNameOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {

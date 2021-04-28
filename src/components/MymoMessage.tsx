@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
@@ -9,7 +9,7 @@ function Alert(props: AlertProps) {
 export default function MymoMessage({ msg, severity, ...rest }: any) {
   return (
     <Snackbar open={true} {...rest}>
-      <Alert severity="error">{msg}</Alert>
+      <Alert severity={severity}>{msg}</Alert>
     </Snackbar>
   );
 }

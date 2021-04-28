@@ -7,9 +7,11 @@ import { Switch, Route } from 'react-router-dom';
 const App: React.FC = () => {
   return (
     <>
-      <Route exact path="/signin" component={SignInPage} />
-      <Route exact path="/signup" component={SignUpPage} />
-      <Route path="/" component={WithNavContainer} />
+      <Switch>
+        <Route exact path="/signin" component={SignInPage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route path="/" component={WithNavContainer} />
+      </Switch>
     </>
   );
 };

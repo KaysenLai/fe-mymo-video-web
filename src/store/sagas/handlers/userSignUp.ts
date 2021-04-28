@@ -1,13 +1,7 @@
 import { Action } from '../../../types';
-import {
-  REQUEST_GOOGLE_USER_LOGIN,
-  REQUEST_USER_LOGIN,
-  storeUserLoginFail,
-  storeUserLoginIsLoading,
-  storeUserLoginSuccess,
-} from '../../actions/userLogin';
+import { storeUserLoginSuccess } from '../../actions/userLogin';
 import { call, put } from 'redux-saga/effects';
-import { axiosUserGoogleLogin, axiosUserLogin, axiosUserSignUp } from '../../../requests/user';
+import { axiosUserSignUp } from '../../../requests/user';
 import {
   REQUEST_USER_SIGNUP,
   storeUserSignUpFail,
@@ -23,7 +17,7 @@ export function* handleUserSignUp(action: Action): any {
         const { data } = yield call(axiosUserSignUp, action.payload);
         yield put(storeUserLoginSuccess(data));
         yield put(storeUserSignUpSuccess());
-        localStorage.setItem('user', JSON.stringify(data));
+        sessionStorage.setItem('user', JSON.stringify(data));
       } catch (err) {
         yield put(storeUserSignUpFail(err.response.data.message));
       }

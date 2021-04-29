@@ -5,9 +5,7 @@ const compressImage = (file: File, maxHeight: number, maxWidth: number, callback
     maxHeight: 400,
     maxWidth: 400,
     success: async function (result) {
-      const formData = new FormData();
-      formData.append('avatar', result);
-      callback(formData);
+      callback(result);
     },
     error(err) {
       console.log(err.message);

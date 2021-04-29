@@ -12,7 +12,7 @@ const MymoAvatar: React.FC<MyAvatarProps & React.HTMLAttributes<any>> = (props) 
   return (
     <>
       {avatarSrc === '' && <LetterAvatar fullName={fullName} {...rest} />}
-      {avatarSrc.startsWith('http') && <Avatar alt={fullName} src={avatarSrc} {...rest} />}
+      {avatarSrc !== '' && <Avatar alt={fullName} src={avatarSrc} {...rest} />}
     </>
   );
 };

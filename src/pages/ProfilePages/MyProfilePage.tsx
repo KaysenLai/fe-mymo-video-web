@@ -18,7 +18,7 @@ const ProfilePage: React.FC = () => {
   const { userInfo } = userLogin;
   const { avatar, name } = userInfo;
   const classes = useStyles();
-
+  const fake = 'https://mymo-avatar.s3.ap-southeast-2.amazonaws.com/89b11bf9-1783-46ab-92c7-a90314e7c8b1.jpg';
   useEffect(() => {
     dispatch(requestMyProfile());
   }, [dispatch]);
@@ -26,7 +26,14 @@ const ProfilePage: React.FC = () => {
   return (
     <>
       <Container>
-        <ProfileInfo className={classes.info} />
+        <ProfileInfo
+          className={classes.info}
+          fullName="chaokai lai"
+          description="ddd"
+          followingNum={0}
+          followerNum={0}
+          avatar={fake}
+        />
       </Container>
     </>
   );

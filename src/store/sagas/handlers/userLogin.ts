@@ -39,11 +39,9 @@ export function* handleUserLogin(action: Action): any {
     }
     case UPDATE_USER_INFO: {
       try {
-        const formData = new FormData();
-        formData.append('avatar', action.payload);
-        const res = yield call(axiosUpdateUserInfo, formData);
-        const userInfo = res.data;
-        yield put(storeUserInfo(userInfo));
+        const { data } = yield call(axiosUpdateUserInfo, action.payload);
+        console.log(data);
+        // yield put(storeUserInfo(userInfo));
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
       }

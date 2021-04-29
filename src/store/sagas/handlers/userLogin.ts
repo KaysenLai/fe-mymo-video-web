@@ -2,7 +2,6 @@ import { Action } from '../../../types';
 import {
   REQUEST_GOOGLE_USER_LOGIN,
   REQUEST_USER_LOGIN,
-  STORE_USER_INFO,
   storeUserInfo,
   storeUserIsOAuth,
   storeUserLoginFail,

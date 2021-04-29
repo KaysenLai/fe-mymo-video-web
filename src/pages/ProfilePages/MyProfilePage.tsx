@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../types/state';
 import { makeStyles } from '@material-ui/core/styles';
 import ProfileInfo from '../../components/ProfileInfo';
+import { requestMyProfile } from '../../store/actions/profile';
 
 const useStyles = makeStyles(() => ({
   info: {
@@ -18,7 +19,9 @@ const ProfilePage: React.FC = () => {
   const { avatar, name } = userInfo;
   const classes = useStyles();
 
-  useEffect(() => {});
+  useEffect(() => {
+    dispatch(requestMyProfile());
+  }, [dispatch]);
 
   return (
     <>

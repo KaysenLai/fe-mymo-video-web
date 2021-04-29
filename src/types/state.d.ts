@@ -1,4 +1,5 @@
 import { UserInfo } from './common';
+import { MyProfile } from './profile';
 
 export interface State {
   userLogin: {
@@ -11,5 +12,8 @@ export interface State {
   userSignUp: {
     isLoading: boolean;
     errorMessage: string;
+  };
+  profile: {
+    myProfile: MyProfile;
   };
 }

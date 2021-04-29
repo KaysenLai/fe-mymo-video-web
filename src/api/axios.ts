@@ -38,9 +38,9 @@ const userIdAxios = axios.create();
 userIdAxios.interceptors.request.use((req) => {
   const loginState = getLocalLogin();
   if (!loginState) return req;
-  const profile = sessionStorage.getItem('myProfile');
-  if (!profile) return req;
-  // req.headers['x-userid'] = profile?._id;
+  const myProfile = JSON.parse(sessionStorage.getItem('myProfile') as string);
+  if (!myProfile) return req;
+  req.headers['x-userid'] = myProfile._id;
   return req;
 });
 

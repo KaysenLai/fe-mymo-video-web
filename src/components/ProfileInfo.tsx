@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
     },
     '& p': {
       fontSize: '18px',
+      marginTop: '4px',
       color: theme.palette.grey[400],
       marginRight: '30px',
     },
@@ -76,7 +77,9 @@ const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (pro
             </div>
 
             <div className={classes.descWrap}>
-              <p className={classes.desc}>{description}</p>
+              <p className={classes.desc}>
+                {description === '' ? "You don't have a description right now." : description}
+              </p>
               <div>
                 <span>Follower: {followerNum}</span>
                 <span>Following: {followingNum}</span>

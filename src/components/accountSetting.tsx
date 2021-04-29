@@ -29,9 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(3, 4, 5),
       '& h2': {
-        fontSize: '28px',
+        fontSize: '24px',
         fontWeight: 500,
-        color: theme.palette.primary.main,
       },
     },
     form: {
@@ -40,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     avatar: {
       width: '120px',
       height: '120px',
+      fontSize: '50px',
       marginLeft: '40px',
     },
     avatarWrap: {

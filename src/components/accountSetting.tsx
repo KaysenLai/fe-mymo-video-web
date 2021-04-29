@@ -154,6 +154,7 @@ const AccountSetting: React.FC<AccountSettingProps> = (props) => {
     formData.append('description', desc);
     setError('');
     dispatch(updateUserInfo(formData));
+    setOpen(false);
   };
 
   return (

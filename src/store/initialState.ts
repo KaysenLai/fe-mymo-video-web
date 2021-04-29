@@ -3,7 +3,7 @@ const initialSate = {
     isAuthenticated: false,
     isLoading: false,
     errorMessage: '',
-    userInfo: { _id: '', name: '', email: '', token: '', avatar: '' },
+    token: '',
     isOAuth: false,
   },
   userSignUp: {
@@ -11,6 +11,7 @@ const initialSate = {
     errorMessage: '',
   },
   profile: {
+    isLoading: false,
     myProfile: {
       avatar: '',
       description: '',

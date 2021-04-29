@@ -5,6 +5,7 @@ import { State } from '../../types/state';
 import { makeStyles } from '@material-ui/core/styles';
 import ProfileInfo from '../../components/ProfileInfo';
 import { requestMyProfile } from '../../store/actions/profile';
+import Loading from '../../components/Loading';
 
 const useStyles = makeStyles(() => ({
   info: {
@@ -14,11 +15,10 @@ const useStyles = makeStyles(() => ({
 
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state: State) => state.userLogin);
-  const { userInfo } = userLogin;
-  const { avatar, name } = userInfo;
+  const { myProfile, isLoading } = useSelector((state: State) => state.profile);
+  const { name, avatar, description, followingNum, followerNum } = myProfile;
   const classes = useStyles();
-  const fake = 'https://mymo-avatar.s3.ap-southeast-2.amazonaws.com/89b11bf9-1783-46ab-92c7-a90314e7c8b1.jpg';
+
   useEffect(() => {
     dispatch(requestMyProfile());
   }, [dispatch]);
@@ -26,13 +26,14 @@ const ProfilePage: React.FC = () => {
   return (
     <>
       <Container>
+        {isLoading && <Loading isLoading />}
         <ProfileInfo
           className={classes.info}
-          fullName="chaokai lai"
-          description="ddd"
-          followingNum={0}
-          followerNum={0}
-          avatar={fake}
+          fullName={name}
+          description={description}
+          followingNum={followingNum}
+          followerNum={followerNum}
+          avatar={avatar}
         />
       </Container>
     </>

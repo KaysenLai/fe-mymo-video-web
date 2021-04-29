@@ -6,7 +6,7 @@ export interface State {
     isAuthenticated: boolean;
     isLoading: boolean;
     errorMessage: string;
-    userInfo: UserInfo;
+    token: string;
     isOAuth: boolean;
   };
   userSignUp: {
@@ -14,6 +14,7 @@ export interface State {
     errorMessage: string;
   };
   profile: {
+    isLoading: boolean;
     myProfile: MyProfile;
   };
 }

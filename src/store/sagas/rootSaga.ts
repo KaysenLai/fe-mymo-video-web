@@ -9,7 +9,8 @@ import { handleProfile } from './handlers/profile';
 export function* watcherSaga() {
   yield takeLatest(REQUEST_USER_LOGIN, handleUserLogin);
   yield takeLatest(REQUEST_GOOGLE_USER_LOGIN, handleUserLogin);
-  yield takeLatest(UPDATE_USER_INFO, handleUserLogin);
   yield takeLatest(REQUEST_USER_SIGNUP, handleUserSignUp);
+
+  yield takeLatest(UPDATE_USER_INFO, handleProfile);
   yield takeLatest(REQUEST_MY_PROFILE, handleProfile);
 }

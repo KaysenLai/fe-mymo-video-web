@@ -90,7 +90,8 @@ const SignInPage: React.FC = (props: any) => {
   const googleAuthKey = process.env.REACT_APP_GOOGLE_AUTH || '';
   const dispatch = useDispatch();
   const userLogin = useSelector((state: State) => state.userLogin);
-  const { isLoading, errorMessage, userInfo, isAuthenticated } = userLogin;
+  const profile = useSelector((state: State) => state.profile);
+  const { isLoading, errorMessage, isAuthenticated } = userLogin;
 
   useEffect(() => {
     const previousPath = location?.state?.redirect;
@@ -100,7 +101,7 @@ const SignInPage: React.FC = (props: any) => {
     } else {
       history.push('/');
     }
-  }, [history, userInfo]);
+  }, [history, profile]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -144,12 +145,8 @@ const SignInPage: React.FC = (props: any) => {
 
   const handleGoogleSuccess = async (res: any) => {
     const profile = res?.profileObj;
-    const token = res?.tokenId;
     const { email, name, imageUrl } = profile;
-    const googleLogin = {
-      token,
-      GoogleLoginInfo: { email, name, avatar: imageUrl },
-    };
+    const googleLogin = { email, name, avatar: imageUrl };
     dispatch(requestGoogleUserLogin(googleLogin));
   };
 

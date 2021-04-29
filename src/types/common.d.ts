@@ -12,25 +12,12 @@ export interface RouteProps {
   redirectTo?: string;
 }
 
-export interface UserInfo {
-  _id?: string;
-  name: string;
-  email: string;
-  token: string;
-  avatar: string;
-}
-
 export interface LoginInfo {
   email: string;
   password: string;
 }
 
 export interface GoogleLogin {
-  token: string;
-  GoogleLoginInfo: GoogleLoginInfo;
-}
-
-export interface GoogleLoginInfo {
   email: string;
   name: string;
   avatar: string;

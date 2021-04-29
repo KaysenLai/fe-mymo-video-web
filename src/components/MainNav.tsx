@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../types/state';
 import { storeUserLogout } from '../store/actions/userLogin';
 import { useHistory } from 'react-router-dom';
-import { UserInfo } from '../types';
 import MymoAvatar from './MymoAvatar';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +42,7 @@ const MainNav = () => {
   const classes = useStyles();
   const userLogin = useSelector((state: State) => state.userLogin);
 
-  const { isAuthenticated, userInfo } = userLogin;
+  const { isAuthenticated } = userLogin;
 
   return (
     <AppBar position="relative" className={classes.mainNav}>
@@ -56,7 +55,7 @@ const MainNav = () => {
               </Link>
             </Grid>
             <Grid item>
-              {isAuthenticated && <LogoutButtons userInfo={userInfo} />}
+              {isAuthenticated && <LogoutButtons />}
               {!isAuthenticated && <LoginButtons />}
             </Grid>
           </Grid>
@@ -66,10 +65,12 @@ const MainNav = () => {
   );
 };
 
-const LogoutButtons = ({ userInfo }: { userInfo: UserInfo }) => {
+const LogoutButtons: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const myProfile = useSelector((state: State) => state.profile.myProfile);
+  const { name, avatar } = myProfile;
 
   const handleLogout = () => {
     dispatch(storeUserLogout());
@@ -82,10 +83,10 @@ const LogoutButtons = ({ userInfo }: { userInfo: UserInfo }) => {
         <Link to="/profile">
           <Grid container justify="center" alignItems="center" spacing={2}>
             <Grid item>
-              <MymoAvatar avatarSrc={userInfo.avatar} fullName={userInfo.name} className={classes.avatar} />
+              <MymoAvatar avatarSrc={avatar} fullName={name} className={classes.avatar} />
             </Grid>
             <Grid item>
-              <span className={classes.userName}>{userInfo.name}</span>
+              <span className={classes.userName}>{name}</span>
             </Grid>
           </Grid>
         </Link>

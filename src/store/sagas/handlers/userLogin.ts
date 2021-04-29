@@ -2,15 +2,17 @@ import { Action } from '../../../types';
 import {
   REQUEST_GOOGLE_USER_LOGIN,
   REQUEST_USER_LOGIN,
-  storeUserInfo,
   storeUserIsOAuth,
   storeUserLoginFail,
   storeUserLoginIsLoading,
   storeUserLoginSuccess,
   UPDATE_USER_INFO,
 } from '../../actions/userLogin';
-import { call, put } from 'redux-saga/effects';
+import { call, put, fork } from 'redux-saga/effects';
 import { axiosUpdateUserInfo, axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
+import { requestMyProfile } from '../../actions/profile';
+import { handleProfile } from './profile';
+import getLocalLogin from '../../../utils/getLocalLogin';
 
 export function* handleUserLogin(action: Action): any {
   switch (action.type) {
@@ -18,8 +20,9 @@ export function* handleUserLogin(action: Action): any {
       try {
         yield put(storeUserLoginIsLoading(true));
         const { data } = yield call(axiosUserLogin, action.payload);
-        yield put(storeUserLoginSuccess(data));
-        sessionStorage.setItem('user', JSON.stringify(data));
+        const { token } = data;
+        yield put(storeUserLoginSuccess(token));
+        yield fork(handleProfile, requestMyProfile());
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
       }
@@ -27,26 +30,16 @@ export function* handleUserLogin(action: Action): any {
     }
     case REQUEST_GOOGLE_USER_LOGIN: {
       try {
-        const { data } = yield call(axiosUserGoogleLogin, action.payload.GoogleLoginInfo);
-        const user = { ...data, token: action.payload.token };
-        yield put(storeUserLoginSuccess(user));
+        const { data } = yield call(axiosUserGoogleLogin, action.payload);
+        const { token } = data;
+        yield put(storeUserLoginSuccess(token));
         yield put(storeUserIsOAuth(true));
-        sessionStorage.setItem('user', JSON.stringify(user));
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
       }
       break;
     }
-    case UPDATE_USER_INFO: {
-      try {
-        const { data } = yield call(axiosUpdateUserInfo, action.payload);
-        console.log(data);
-        // yield put(storeUserInfo(userInfo));
-      } catch (err) {
-        yield put(storeUserLoginFail(err.response.data.message));
-      }
-      break;
-    }
+
     default:
       return;
   }

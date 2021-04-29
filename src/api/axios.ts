@@ -1,17 +1,18 @@
 import axios from 'axios';
-import getLocalUser from '../utils/getLocalUser';
+import getLocalLogin from '../utils/getLocalLogin';
 import store from '../store/store';
 import { storeUserLogoutRedirect } from '../store/actions/userLogin';
 
 const authAxios = axios.create();
 authAxios.interceptors.request.use((req) => {
-  const localUser = getLocalUser();
-  if (!localUser) {
+  const loginState = getLocalLogin();
+  if (!loginState) {
     store.dispatch(storeUserLogoutRedirect());
     return req;
   }
-  const token = localUser.userInfo.token;
+  const token = loginState.token;
   if (!token) return req;
+  console.log(token);
   req.headers.Authorization = `Bearer ${token}`;
   return req;
 });
@@ -35,9 +36,11 @@ authAxios.interceptors.response.use(
 
 const userIdAxios = axios.create();
 userIdAxios.interceptors.request.use((req) => {
-  const localUser = getLocalUser();
-  if (!localUser) return req;
-  req.headers['x-userid'] = localUser.userInfo._id;
+  const loginState = getLocalLogin();
+  if (!loginState) return req;
+  const profile = sessionStorage.getItem('myProfile');
+  if (!profile) return req;
+  // req.headers['x-userid'] = profile?._id;
   return req;
 });
 

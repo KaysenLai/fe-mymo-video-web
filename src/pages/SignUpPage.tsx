@@ -100,12 +100,12 @@ const SignUpPage: React.FC = (props: any) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state: State) => state.userLogin);
   const userSignUp = useSelector((state: State) => state.userSignUp);
-  const { isAuthenticated, userInfo } = userLogin;
+  const { isAuthenticated } = userLogin;
   const { isLoading, errorMessage } = userSignUp;
 
   useEffect(() => {
     if (isAuthenticated) history.push('/');
-  }, [history, userInfo]);
+  }, [history]);
 
   const handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();

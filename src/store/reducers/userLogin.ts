@@ -1,6 +1,7 @@
 import { Action } from '../../types';
 import {
   STORE_IS_OAUTH,
+  STORE_USER_INFO,
   STORE_USER_LOGIN_FAIL,
   STORE_USER_LOGIN_IS_LOADING,
   STORE_USER_LOGIN_SUCCESS,
@@ -10,7 +11,7 @@ import {
 import initialState from '../initialState';
 import getLocalUser from '../../utils/getLocalUser';
 
-const userLoginState = getLocalUser() ? getLocalUser() : initialState.userLogin;
+const userLoginState = getLocalUser() !== null ? getLocalUser() : initialState.userLogin;
 
 export const userLoginReducer = (state = userLoginState, action: Action) => {
   switch (action.type) {
@@ -35,6 +36,9 @@ export const userLoginReducer = (state = userLoginState, action: Action) => {
       sessionStorage.removeItem('user');
       window.location.href = '/signin';
       return { ...state, isAuthenticated: false, userInfo: null };
+    case STORE_USER_INFO:
+      sessionStorage.setItem('user', JSON.stringify(action.payload));
+      return { ...state, userInfo: action.payload };
     default:
       return state;
   }

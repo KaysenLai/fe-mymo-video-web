@@ -26,7 +26,6 @@ export interface LoginInfo {
 }
 
 export interface GoogleLogin {
-  avatar: string;
   token: string;
   GoogleLoginInfo: GoogleLoginInfo;
 }
@@ -34,6 +33,7 @@ export interface GoogleLogin {
 export interface GoogleLoginInfo {
   email: string;
   name: string;
+  avatar: string;
 }
 
 export interface SignUpInfo {

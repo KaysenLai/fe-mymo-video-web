@@ -147,9 +147,8 @@ const SignInPage: React.FC = (props: any) => {
     const token = res?.tokenId;
     const { email, name, imageUrl } = profile;
     const googleLogin = {
-      avatar: imageUrl,
       token,
-      GoogleLoginInfo: { email, name },
+      GoogleLoginInfo: { email, name, avatar: imageUrl },
     };
     dispatch(requestGoogleUserLogin(googleLogin));
   };

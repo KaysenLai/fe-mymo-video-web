@@ -2,13 +2,16 @@ import { Action } from '../../../types';
 import {
   REQUEST_GOOGLE_USER_LOGIN,
   REQUEST_USER_LOGIN,
+  STORE_USER_INFO,
+  storeUserInfo,
   storeUserIsOAuth,
   storeUserLoginFail,
   storeUserLoginIsLoading,
   storeUserLoginSuccess,
+  UPDATE_USER_INFO,
 } from '../../actions/userLogin';
 import { call, put } from 'redux-saga/effects';
-import { axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
+import { axiosUpdateUserInfo, axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
 
 export function* handleUserLogin(action: Action): any {
   switch (action.type) {
@@ -26,10 +29,22 @@ export function* handleUserLogin(action: Action): any {
     case REQUEST_GOOGLE_USER_LOGIN: {
       try {
         const { data } = yield call(axiosUserGoogleLogin, action.payload.GoogleLoginInfo);
-        const user = { ...data, avatar: action.payload.avatar, token: action.payload.token };
+        const user = { ...data, token: action.payload.token };
         yield put(storeUserLoginSuccess(user));
         yield put(storeUserIsOAuth(true));
         sessionStorage.setItem('user', JSON.stringify(user));
+      } catch (err) {
+        yield put(storeUserLoginFail(err.response.data.message));
+      }
+      break;
+    }
+    case UPDATE_USER_INFO: {
+      try {
+        const formData = new FormData();
+        formData.append('avatar', action.payload);
+        const res = yield call(axiosUpdateUserInfo, formData);
+        const userInfo = res.data;
+        yield put(storeUserInfo(userInfo));
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
       }

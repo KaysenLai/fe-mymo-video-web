@@ -1,4 +1,4 @@
-import { Action, GoogleLogin, LoginInfo } from '../../types';
+import { Action, GoogleLogin, LoginInfo, UserInfo } from '../../types';
 
 export const REQUEST_USER_LOGIN = 'USER_LOGIN_REQUEST';
 export const REQUEST_GOOGLE_USER_LOGIN = 'REQUEST_GOOGLE_USER_LOGIN';
@@ -7,6 +7,8 @@ export const STORE_IS_OAUTH = 'STORE_IS_OAUTH';
 export const STORE_USER_LOGIN_SUCCESS = 'STORE_USER_LOGIN_SUCCESS';
 export const STORE_USER_LOGIN_FAIL = 'STORE_USER_LOGIN_FAIL';
 export const STORE_USER_LOGOUT = 'STORE_USER_LOGOUT';
+export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
+export const STORE_USER_INFO = 'STORE_USER_INFO';
 export const STORE_USER_LOGOUT_REDIRECT = 'STORE_USER_LOGOUT_REDIRECT';
 
 export const requestUserLogin = (loginInfo: LoginInfo): Action<LoginInfo> => ({
@@ -45,4 +47,14 @@ export const storeUserLogout = (): Action => ({
 
 export const storeUserLogoutRedirect = (): Action<string> => ({
   type: STORE_USER_LOGOUT_REDIRECT,
+});
+
+export const updateUserInfo = (userInfo: FormData): Action<FormData> => ({
+  type: UPDATE_USER_INFO,
+  payload: userInfo,
+});
+
+export const storeUserInfo = (userInfo: UserInfo): Action<UserInfo> => ({
+  type: STORE_USER_INFO,
+  payload: userInfo,
 });

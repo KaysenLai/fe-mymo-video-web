@@ -1,29 +1,29 @@
 import React, { useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import { authAxios } from '../../api/axios';
-import { useQuery } from 'react-query';
-import { apiMyProfile } from '../../api/api';
-import Loading from '../../components/Loading';
-import LoadingIcon from '../../components/LoadingIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../types/state';
+import { makeStyles } from '@material-ui/core/styles';
+import ProfileInfo from '../../components/ProfileInfo';
+
+const useStyles = makeStyles(() => ({
+  info: {
+    marginTop: '40px',
+  },
+}));
 
 const ProfilePage: React.FC = () => {
-  useEffect(() => {});
-  const { isLoading, error, data, isFetching } = useQuery('myProfileData', async () => {
-    const res = await authAxios(apiMyProfile());
-    console.log(res.data);
-    return res.data;
-  });
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state: State) => state.userLogin);
+  const { userInfo } = userLogin;
+  const { avatar, name } = userInfo;
+  const classes = useStyles();
 
-  if (isLoading) {
-    return <Loading isLoading />;
-  }
-  if (error) {
-    return <LoadingIcon />;
-  }
+  useEffect(() => {});
+
   return (
     <>
       <Container>
-        <div>{JSON.stringify(data)}</div>
+        <ProfileInfo className={classes.info} />
       </Container>
     </>
   );

@@ -12,12 +12,7 @@ import { GoogleOutlined } from '@ant-design/icons';
 import { GoogleLogin } from 'react-google-login';
 import logo from '../assets/img/MYMO_logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  requestGoogleUserLogin,
-  requestUserLogin,
-  storeUserLoginFail,
-  storeUserLoginIsLoading,
-} from '../store/actions/userLogin';
+import { requestGoogleUserLogin, requestUserLogin, storeUserLoginIsLoading } from '../store/actions/userLogin';
 import { State } from '../types/state';
 import MymoMessage from '../components/MymoMessage';
 import Loading from '../components/Loading';

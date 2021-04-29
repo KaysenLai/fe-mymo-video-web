@@ -6,13 +6,11 @@ import {
   storeUserLoginFail,
   storeUserLoginIsLoading,
   storeUserLoginSuccess,
-  UPDATE_USER_INFO,
 } from '../../actions/userLogin';
 import { call, put, fork } from 'redux-saga/effects';
-import { axiosUpdateUserInfo, axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
+import { axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
 import { requestMyProfile } from '../../actions/profile';
 import { handleProfile } from './profile';
-import getLocalLogin from '../../../utils/getLocalLogin';
 
 export function* handleUserLogin(action: Action): any {
   switch (action.type) {

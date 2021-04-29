@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MymoAvatar from './MymoAvatar';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUserInfo } from '../store/actions/userLogin';
-import compressImage from '../utils/compressImage';
 import theme from '../assets/theme';
 import AccountSetting from './accountSetting';
 
@@ -43,6 +40,7 @@ const useStyles = makeStyles(() => ({
   },
   avatar: {
     margin: '6px 0',
+    fontSize: '60px',
     width: '140px',
     height: '140px',
   },
@@ -63,7 +61,6 @@ interface ProfileInfoProps {
 
 const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (props) => {
   const { fullName, description, followerNum, followingNum, avatar, ...rest } = props;
-  const dispatch = useDispatch();
   const classes = useStyles();
   return (
     <>
@@ -72,7 +69,6 @@ const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (pro
           <div className={classes.avatarWarp}>
             <MymoAvatar avatarSrc={avatar} fullName={fullName} className={classes.avatar} />
           </div>
-          {/*<input type="file" id="image_upload" accept="image/jpeg, image/jpg" onChange={handleOnChange} />*/}
           <div>
             <div className={classes.nameWrap}>
               <h3 className={classes.name}>{fullName}</h3>

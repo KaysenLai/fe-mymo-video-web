@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     dropZone: {
       border: 'dashed grey 3px',
       fontSize: '16px',
+      color: theme.palette.grey[500],
       padding: theme.spacing(4),
       display: 'flex',
       alignItems: 'center',
@@ -85,7 +86,6 @@ const AccountSetting: React.FC<AccountSettingProps> = (props) => {
   const [error, setError] = useState('');
   const [desc, setDesc] = useState(description);
   const [file, setFile] = useState(new File([], ''));
-  const [hasFile, setHasFile] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -140,7 +140,6 @@ const AccountSetting: React.FC<AccountSettingProps> = (props) => {
       const objectURL = URL.createObjectURL(result);
       setAvatar(objectURL);
       setFile(imageFile);
-      setHasFile(true);
     };
     compressImage(imageFile, 400, 400, callback);
   };
@@ -182,7 +181,7 @@ const AccountSetting: React.FC<AccountSettingProps> = (props) => {
                 {({ getRootProps, getInputProps }) => (
                   <section>
                     <div {...getRootProps()}>
-                      <input {...getInputProps()} />
+                      <input {...getInputProps()} accept="image/jpeg, image/jpg" />
                       <div className={classes.dropZone}>Drag and drop your avatar here, or click to select files</div>
                     </div>
                   </section>

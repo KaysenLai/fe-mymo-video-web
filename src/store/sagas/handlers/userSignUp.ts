@@ -1,6 +1,6 @@
 import { Action } from '../../../types';
 import { storeUserLoginSuccess } from '../../actions/userLogin';
-import { call, put } from 'redux-saga/effects';
+import { call, fork, put } from 'redux-saga/effects';
 import { axiosUserSignUp } from '../../../requests/user';
 import {
   REQUEST_USER_SIGNUP,
@@ -8,6 +8,8 @@ import {
   storeUserSignUpIsLoading,
   storeUserSignUpSuccess,
 } from '../../actions/userSignUp';
+import { handleProfile } from './profile';
+import { requestMyProfile } from '../../actions/profile';
 
 export function* handleUserSignUp(action: Action): any {
   switch (action.type) {
@@ -15,9 +17,9 @@ export function* handleUserSignUp(action: Action): any {
       try {
         yield put(storeUserSignUpIsLoading(true));
         const { data } = yield call(axiosUserSignUp, action.payload);
-        yield put(storeUserLoginSuccess(data));
-        yield put(storeUserSignUpSuccess());
-        sessionStorage.setItem('user', JSON.stringify(data));
+        const { token } = data;
+        yield put(storeUserLoginSuccess(token));
+        yield fork(handleProfile, requestMyProfile());
       } catch (err) {
         yield put(storeUserSignUpFail(err.response.data.message));
       }

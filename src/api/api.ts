@@ -6,3 +6,4 @@ export const apiUserSignUp = (): string => `${baseUrl}/user/signup`;
 
 export const apiMyProfile = (): string => `${baseUrl}/user/myprofile`;
 export const apiUpdateUserInfo = (): string => `${baseUrl}/user`;
+export const apiGetUserById = (userId: string): string => `${baseUrl}/user/${userId}`;

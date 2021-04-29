@@ -16,5 +16,6 @@ export interface State {
   profile: {
     isLoading: boolean;
     myProfile: MyProfile;
+    idProfile: MyProfile;
   };
 }

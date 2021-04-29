@@ -1,3 +1,17 @@
+const profile = {
+  avatar: '',
+  description: '',
+  following: [],
+  follower: [],
+  followingNum: 0,
+  followerNum: 0,
+  video: [],
+  likeVideo: [],
+  _id: '',
+  name: '',
+  email: '',
+};
+
 const initialSate = {
   userLogin: {
     isAuthenticated: false,
@@ -12,19 +26,8 @@ const initialSate = {
   },
   profile: {
     isLoading: false,
-    myProfile: {
-      avatar: '',
-      description: '',
-      following: [],
-      follower: [],
-      followingNum: 0,
-      followerNum: 0,
-      video: [],
-      likeVideo: [],
-      _id: '',
-      name: '',
-      email: '',
-    },
+    myProfile: profile,
+    idProfile: profile,
   },
 };
 

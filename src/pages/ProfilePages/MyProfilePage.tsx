@@ -24,19 +24,18 @@ const ProfilePage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Container>
-        {isLoading && <Loading isLoading />}
-        <ProfileInfo
-          className={classes.info}
-          fullName={name}
-          description={description}
-          followingNum={followingNum}
-          followerNum={followerNum}
-          avatar={avatar}
-        />
-      </Container>
-    </>
+    <Container>
+      {isLoading && <Loading isLoading />}
+      <ProfileInfo
+        className={classes.info}
+        fullName={name}
+        description={description}
+        followingNum={followingNum}
+        followerNum={followerNum}
+        avatar={avatar}
+        isMyProfile={true}
+      />
+    </Container>
   );
 };
 

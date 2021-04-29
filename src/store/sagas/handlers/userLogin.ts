@@ -31,13 +31,13 @@ export function* handleUserLogin(action: Action): any {
         const { data } = yield call(axiosUserGoogleLogin, action.payload);
         const { token } = data;
         yield put(storeUserLoginSuccess(token));
+        yield fork(handleProfile, requestMyProfile());
         yield put(storeUserIsOAuth(true));
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
       }
       break;
     }
-
     default:
       return;
   }

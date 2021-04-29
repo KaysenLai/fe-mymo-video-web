@@ -13,8 +13,8 @@ const WithNavContainer: React.FC = (props: any) => {
     <>
       <MainNav />
       <Route exact path="/" component={HomePage} />
-      <Route exact path="/profile/userId" component={ProfilePage} />
       <ProtectedRoute exact path="/profile" redirectTo="/signin" component={MyProfilePage} />
+      <Route path="/profile/:userId" component={ProfilePage} />
     </>
   );
 };

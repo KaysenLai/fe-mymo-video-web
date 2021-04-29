@@ -33,7 +33,9 @@ const useStyles = makeStyles(() => ({
       marginRight: '24px',
     },
     '& p': {
-      fontSize: '18px',
+      fontSize: '17px',
+      lineHeight: '22px',
+      maxWidth: '700px',
       marginTop: '4px',
       color: theme.palette.grey[400],
       marginRight: '30px',
@@ -58,10 +60,11 @@ interface ProfileInfoProps {
   followingNum: number;
   followerNum: number;
   avatar: string;
+  isMyProfile: boolean;
 }
 
 const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (props) => {
-  const { fullName, description, followerNum, followingNum, avatar, ...rest } = props;
+  const { fullName, description, followerNum, followingNum, avatar, isMyProfile, ...rest } = props;
   const classes = useStyles();
   return (
     <>
@@ -73,7 +76,7 @@ const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (pro
           <div>
             <div className={classes.nameWrap}>
               <h3 className={classes.name}>{fullName}</h3>
-              <AccountSetting fullName={fullName} avatarSrc={avatar} description={description} />
+              {isMyProfile && <AccountSetting fullName={fullName} avatarSrc={avatar} description={description} />}
             </div>
 
             <div className={classes.descWrap}>

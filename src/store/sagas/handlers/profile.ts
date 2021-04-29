@@ -1,7 +1,14 @@
 import { Action } from '../../../types';
-import { REQUEST_MY_PROFILE, requestMyProfile, storeMyProfile, storeProfileLoading } from '../../actions/profile';
+import {
+  REQUEST_ID_PROFILE,
+  REQUEST_MY_PROFILE,
+  requestMyProfile,
+  storeIdProfile,
+  storeMyProfile,
+  storeProfileLoading,
+} from '../../actions/profile';
 import { call, fork, put } from 'redux-saga/effects';
-import { axiosRequestMyProfile } from '../../../requests/profile';
+import { axiosRequestMyProfile, axiosRequestUseById } from '../../../requests/profile';
 import { storeUserLoginFail, UPDATE_USER_INFO } from '../../actions/userLogin';
 import { axiosUpdateUserInfo } from '../../../requests/user';
 
@@ -11,6 +18,16 @@ export function* handleProfile(action: Action): any {
       try {
         const { data } = yield call(axiosRequestMyProfile);
         yield put(storeMyProfile(data));
+      } catch (err) {
+        console.log(err);
+      }
+      break;
+    }
+    case REQUEST_ID_PROFILE: {
+      try {
+        const { data } = yield call(axiosRequestUseById, action.payload);
+        console.log(data);
+        yield put(storeIdProfile(data));
       } catch (err) {
         console.log(err);
       }

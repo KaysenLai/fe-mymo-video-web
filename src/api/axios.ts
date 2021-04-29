@@ -12,7 +12,6 @@ authAxios.interceptors.request.use((req) => {
   }
   const token = loginState.token;
   if (!token) return req;
-  console.log(token);
   req.headers.Authorization = `Bearer ${token}`;
   return req;
 });
@@ -37,7 +36,10 @@ authAxios.interceptors.response.use(
 const userIdAxios = axios.create();
 userIdAxios.interceptors.request.use((req) => {
   const loginState = getLocalLogin();
-  if (!loginState) return req;
+  if (!loginState) {
+    sessionStorage.clear();
+    return req;
+  }
   const myProfile = JSON.parse(sessionStorage.getItem('myProfile') as string);
   if (!myProfile) return req;
   req.headers['x-userid'] = myProfile._id;

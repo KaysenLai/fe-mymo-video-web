@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { fNameEmptyText, lNameEmptyText, nameSpaceText } from '../utils/validation';
+import GhostButton from './GhostButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -158,9 +159,9 @@ const AccountSetting: React.FC<AccountSettingProps> = (props) => {
 
   return (
     <div>
-      <Button color="primary" variant="contained" onClick={handleOpen}>
+      <GhostButton size="small" onClick={handleOpen}>
         Setting
-      </Button>
+      </GhostButton>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

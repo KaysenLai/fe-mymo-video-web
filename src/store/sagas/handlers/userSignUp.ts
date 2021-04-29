@@ -19,6 +19,7 @@ export function* handleUserSignUp(action: Action): any {
         const { data } = yield call(axiosUserSignUp, action.payload);
         const { token } = data;
         yield put(storeUserLoginSuccess(token));
+        yield put(storeUserSignUpSuccess());
         yield fork(handleProfile, requestMyProfile());
       } catch (err) {
         yield put(storeUserSignUpFail(err.response.data.message));

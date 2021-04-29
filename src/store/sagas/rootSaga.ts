@@ -3,7 +3,7 @@ import { REQUEST_GOOGLE_USER_LOGIN, REQUEST_USER_LOGIN, UPDATE_USER_INFO } from 
 import { handleUserLogin } from './handlers/userLogin';
 import { REQUEST_USER_SIGNUP } from '../actions/userSignUp';
 import { handleUserSignUp } from './handlers/userSignUp';
-import { REQUEST_MY_PROFILE } from '../actions/profile';
+import { REQUEST_ID_PROFILE, REQUEST_MY_PROFILE } from '../actions/profile';
 import { handleProfile } from './handlers/profile';
 
 export function* watcherSaga() {
@@ -13,4 +13,5 @@ export function* watcherSaga() {
 
   yield takeLatest(UPDATE_USER_INFO, handleProfile);
   yield takeLatest(REQUEST_MY_PROFILE, handleProfile);
+  yield takeLatest(REQUEST_ID_PROFILE, handleProfile);
 }

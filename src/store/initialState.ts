@@ -1,4 +1,4 @@
-const profile = {
+const myProfile = {
   avatar: '',
   description: '',
   following: [],
@@ -10,6 +10,11 @@ const profile = {
   _id: '',
   name: '',
   email: '',
+};
+const idProfile = {
+  ...myProfile,
+  isFollowing: false,
+  isMyself: false,
 };
 
 const initialSate = {
@@ -26,8 +31,8 @@ const initialSate = {
   },
   profile: {
     isLoading: false,
-    myProfile: profile,
-    idProfile: profile,
+    myProfile: myProfile,
+    idProfile: idProfile,
   },
 };
 

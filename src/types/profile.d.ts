@@ -11,3 +11,8 @@ export interface MyProfile {
   name: string;
   email: string;
 }
+
+export interface IdProfile extends MyProfile {
+  isMyself: boolean;
+  isFollowing: boolean;
+}

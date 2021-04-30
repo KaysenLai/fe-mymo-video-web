@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MymoAvatar from './MymoAvatar';
 import theme from '../assets/theme';
-import AccountSetting from './accountSetting';
+import AccountSetting from './AccountSetting';
+import FollowButton from './FollowButton';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -55,16 +56,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface ProfileInfoProps {
+  _id: string;
   fullName: string;
   description: string;
   followingNum: number;
   followerNum: number;
   avatar: string;
   isMyProfile: boolean;
+  isFollowing: boolean;
 }
 
 const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (props) => {
-  const { fullName, description, followerNum, followingNum, avatar, isMyProfile, ...rest } = props;
+  const { _id, fullName, description, followerNum, followingNum, avatar, isMyProfile, isFollowing, ...rest } = props;
   const classes = useStyles();
   return (
     <>
@@ -77,6 +80,7 @@ const ProfileInfo: React.FC<ProfileInfoProps & React.HTMLAttributes<any>> = (pro
             <div className={classes.nameWrap}>
               <h3 className={classes.name}>{fullName}</h3>
               {isMyProfile && <AccountSetting fullName={fullName} avatarSrc={avatar} description={description} />}
+              {!isMyProfile && <FollowButton isFollowing={isFollowing} userId={_id} />}
             </div>
 
             <div className={classes.descWrap}>

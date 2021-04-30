@@ -64,9 +64,7 @@ const UserCard: React.FC<UserCardProps> = (props) => {
           </Link>
           <span>{followerNum} Followers</span>
         </Grid>
-        <Grid>
-          <p className={classes.desc}>{desc}</p>
-        </Grid>
+        <Grid className={classes.desc}>{desc}</Grid>
       </Grid>
     </Grid>
   );

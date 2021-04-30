@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-
+import PersonIcon from '@material-ui/icons/Person';
+import { randomInt } from 'node:crypto';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     pink: {
@@ -15,13 +16,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const LetterAvatar = ({ fullName, className, ...rest }: any) => {
+interface LetterAvatarProps {
+  fullName: string;
+  className?: string;
+}
+
+const LetterAvatar: React.FC<LetterAvatarProps & React.HTMLAttributes<any>> = (props) => {
   const classes = useStyles();
+  const { fullName, className, ...rest } = props;
+
   const letter = fullName.toUpperCase()[0];
-  const ascii = letter.charCodeAt(0);
+
   return (
-    <Avatar className={`${ascii % 2 === 0 ? classes.pink : classes.purple} ${className}`} {...rest}>
-      {letter}
+    <Avatar className={`${classes.purple} ${className}`} {...rest}>
+      <p>{letter}</p>
     </Avatar>
   );
 };

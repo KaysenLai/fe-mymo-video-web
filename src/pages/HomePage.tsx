@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
 import axios from 'axios';
-import UserCard from '../components/userCard';
+import UserCard from '../components/UserCard';
 
 const HomePage: React.FC = () => {
   const [users, setUsers] = useState([]);
@@ -19,6 +19,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Container>
+        <h2 style={{ margin: '30px 0' }}>A temporary homepage for testing. Just simply show all users.</h2>
         {users !== [] &&
           users.map((item: any, index: any) => (
             <div key={index}>

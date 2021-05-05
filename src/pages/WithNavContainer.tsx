@@ -6,15 +6,16 @@ import ProfilePage from './ProfilePages/ProfilePage';
 import MyProfilePage from './ProfilePages/MyProfilePage';
 
 import ProtectedRoute from '../routes/ProtectedRoute';
+import StartsPage from './StarsPage';
 
-const WithNavContainer: React.FC = (props: any) => {
-  // console.log(props);
+const WithNavContainer: React.FC = () => {
   return (
     <>
       <MainNav />
       <Route exact path="/" component={HomePage} />
       <ProtectedRoute exact path="/profile" redirectTo="/signin" component={MyProfilePage} />
       <Route path="/profile/:userId" component={ProfilePage} />
+      <Route path="/starts" component={StartsPage} />
     </>
   );
 };

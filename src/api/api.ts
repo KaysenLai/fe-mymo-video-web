@@ -10,3 +10,4 @@ export const apiGetUserById = (userId: string): string => `${baseUrl}/user/${use
 
 export const apiFollowUser = (): string => `${baseUrl}/user/follow`;
 export const apiUnfollowUser = (): string => `${baseUrl}/user/unfollow`;
+export const apiSearchUser = (): string => `${baseUrl}/user/search`;

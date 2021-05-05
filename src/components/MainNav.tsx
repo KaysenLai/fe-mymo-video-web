@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,8 +10,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../types/state';
 import { storeUserLogout } from '../store/actions/userLogin';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import MymoAvatar from './MymoAvatar';
+import { Tabs } from '@material-ui/core';
+import Tab from '@material-ui/core/Tab';
 
 const useStyles = makeStyles((theme) => ({
   mainNav: {
@@ -36,12 +38,50 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     color: 'white',
   },
+  navTab: {
+    height: '64px',
+    fontSize: '16px',
+  },
 }));
+
+export interface NavLink {
+  title: string;
+  path: string;
+}
+
+export type NavLinks = Array<NavLink>;
+
+const navLinks: NavLinks = [
+  { title: 'Home', path: '/' },
+  { title: 'Starts', path: '/starts' },
+];
+
+const navIndex: any = {
+  home: 0,
+  starts: 1,
+};
+
+const findNavIndex = (pathName: string) => {
+  const pathArr = pathName.split('/');
+  const path = pathArr[1];
+  if (path === '') return 0;
+  if (navIndex.hasOwnProperty(path)) return navIndex[path];
+};
 
 const MainNav = () => {
   const classes = useStyles();
   const userLogin = useSelector((state: State) => state.userLogin);
+  const [value, setValue] = React.useState(0);
+  const { pathname } = useLocation();
+  const history = useHistory();
 
+  useMemo(() => {
+    setValue(findNavIndex(pathname));
+  }, [pathname]);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
   const { isAuthenticated } = userLogin;
 
   return (
@@ -54,6 +94,18 @@ const MainNav = () => {
                 <img className={classes.logo} src={logo} alt="mymo logo" />
               </Link>
             </Grid>
+            <Tabs value={value} onChange={handleChange} indicatorColor="primary">
+              {navLinks.map((item, index) => (
+                <Tab
+                  className={classes.navTab}
+                  key={index}
+                  label={item.title}
+                  onClick={() => {
+                    history.push(item.path);
+                  }}
+                />
+              ))}
+            </Tabs>
             <Grid item>
               {isAuthenticated && <LogoutButtons />}
               {!isAuthenticated && <LoginButtons />}
@@ -90,6 +142,7 @@ const LogoutButtons: React.FC = () => {
             </Grid>
           </Grid>
         </Link>
+
         <Grid item>
           <GhostButton size="small" onClick={handleLogout}>
             Log out

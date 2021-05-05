@@ -18,4 +18,5 @@ export interface State {
     myProfile: MyProfile;
     idProfile: IdProfile;
   };
+  star: Array;
 }

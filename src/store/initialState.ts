@@ -34,6 +34,7 @@ const initialSate = {
     myProfile: myProfile,
     idProfile: idProfile,
   },
+  star: [],
 };
 
 export default initialSate;

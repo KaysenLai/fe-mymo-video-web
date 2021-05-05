@@ -53,12 +53,12 @@ export type NavLinks = Array<NavLink>;
 
 const navLinks: NavLinks = [
   { title: 'Home', path: '/' },
-  { title: 'Starts', path: '/starts' },
+  { title: 'Star', path: '/star' },
 ];
 
 const navIndex: any = {
   home: 0,
-  starts: 1,
+  star: 1,
 };
 
 const findNavIndex = (pathName: string) => {

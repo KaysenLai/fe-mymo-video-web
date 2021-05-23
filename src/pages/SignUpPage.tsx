@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import randomImg from '../assets/randomImg';
+import randomImg from '../assets/randomImgLink';
 import {
   emailErrorText,
   validateEmail,

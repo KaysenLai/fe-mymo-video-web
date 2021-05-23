@@ -4,17 +4,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestAllStar, requestSearchStar } from '../store/actions/star';
 import { State } from '../types/state';
 import UserCard from '../components/UserCard';
+import { useLocation, useHistory } from 'react-router-dom';
 
-const StarPage: React.FC = () => {
+interface MatchParams {
+  searchText: string;
+}
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+const StarPage: React.FC = (props) => {
   const star = useSelector((state: State) => state.star);
+  const history = useHistory();
   const dispatch = useDispatch();
-  const [searchText, setSearchText] = useState('');
+  const query = useQuery();
+  const searchTextParams = query.get('searchText');
+
+  const [searchText, setSearchText] = useState(searchTextParams || '');
+
   useEffect(() => {
-    dispatch(requestAllStar());
+    if (searchTextParams === null) {
+      dispatch(requestAllStar());
+    } else {
+      dispatch(requestSearchStar(searchTextParams));
+    }
   }, []);
 
   const handleSearch = () => {
-    dispatch(requestSearchStar(searchText));
+    history.push(`/star?searchText=${searchText}`);
+    if (searchText === null) {
+      dispatch(requestAllStar());
+    } else {
+      dispatch(requestSearchStar(searchText));
+    }
   };
 
   return (

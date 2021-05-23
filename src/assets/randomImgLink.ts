@@ -9,6 +9,6 @@ const goodImages = [
   'https://images.pexels.com/photos/2860804/pexels-photo-2860804.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
 ];
 
-const randomImg: () => string = () => goodImages[Math.floor(Math.random() * goodImages.length)];
+const randomImgLink: () => string = () => goodImages[Math.floor(Math.random() * goodImages.length)];
 
-export default randomImg;
+export default randomImgLink;

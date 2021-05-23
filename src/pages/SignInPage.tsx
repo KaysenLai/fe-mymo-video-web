@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import randomImg from '../assets/randomImg';
+import randomImgLink from '../assets/randomImgLink';
 import { emailErrorText, validateEmail, passwordEmptyText } from '../utils/validation';
 import { GoogleOutlined } from '@ant-design/icons';
 import { GoogleLogin } from 'react-google-login';
@@ -71,7 +71,7 @@ const SignInPage: React.FC = (props: any) => {
   const { history, location } = props;
   const classes = useStyles();
   const [randomImgUrl, setRandomImgUrl] = useState('');
-  if (randomImgUrl === '') setRandomImgUrl(randomImg());
+  if (randomImgUrl === '') setRandomImgUrl(randomImgLink());
   const [email, setEmail] = useState({
     value: '',
     error: false,
@@ -91,7 +91,7 @@ const SignInPage: React.FC = (props: any) => {
   useEffect(() => {
     const previousPath = location?.state?.redirect;
     if (!isAuthenticated) return;
-    if (previousPath) {
+    if (previousPath && !previousPath.startsWith('/verify')) {
       history.push(previousPath);
     } else {
       history.push('/');

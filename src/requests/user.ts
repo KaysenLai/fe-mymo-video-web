@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { apiUpdateUserInfo, apiUserGoogleLogin, apiUserLogin, apiUserSignUp } from '../api/api';
+import { apiUpdateUserInfo, apiUserGoogleLogin, apiUserLogin, apiUserSignUp, apiVerifyAccount } from '../api/api';
 import { GoogleLogin, LoginInfo, SignUpInfo } from '../types';
 import { authAxios } from '../api/axios';
 

@@ -8,17 +8,11 @@ import {
   storeUserLoginSuccess,
 } from '../../actions/userLogin';
 import { call, put, fork } from 'redux-saga/effects';
-import { axiosUserGoogleLogin, axiosUserLogin, axiosUserSignUp } from '../../../requests/user';
+import { axiosUserGoogleLogin, axiosUserLogin } from '../../../requests/user';
 import { requestMyProfile } from '../../actions/profile';
 import { handleProfile } from './profile';
-import {
-  REQUEST_USER_SIGNUP,
-  storeUserSignUpFail,
-  storeUserSignUpIsLoading,
-  storeUserSignUpSuccess,
-} from '../../actions/userSignUp';
 
-export function* handleUserAccount(action: Action): any {
+export function* handleUserLogin(action: Action): any {
   switch (action.type) {
     case REQUEST_USER_LOGIN: {
       try {
@@ -41,19 +35,6 @@ export function* handleUserAccount(action: Action): any {
         yield put(storeUserIsOAuth(true));
       } catch (err) {
         yield put(storeUserLoginFail(err.response.data.message));
-      }
-      break;
-    }
-    case REQUEST_USER_SIGNUP: {
-      try {
-        yield put(storeUserSignUpIsLoading(true));
-        const { data } = yield call(axiosUserSignUp, action.payload);
-        const { token } = data;
-        yield put(storeUserLoginSuccess(token));
-        yield put(storeUserSignUpSuccess());
-        yield fork(handleProfile, requestMyProfile());
-      } catch (err) {
-        yield put(storeUserSignUpFail(err.response.data.message));
       }
       break;
     }

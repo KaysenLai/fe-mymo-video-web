@@ -9,9 +9,9 @@ export const userSignUpReducer = (state = userSignUpState, action: Action) => {
     case STORE_USER_SIGNUP_IS_LOADING:
       return { ...state, isLoading: action.payload };
     case STORE_USER_SIGNUP_SUCCESS:
-      return { isLoading: false, errorMessage: '' };
+      return { isLoading: false, successMessage: action.payload, errorMessage: '' };
     case STORE_USER_SIGNUP_FAIL:
-      return { isLoading: false, errorMessage: action.payload };
+      return { isLoading: false, successMessage: '', errorMessage: action.payload };
     default:
       return state;
   }

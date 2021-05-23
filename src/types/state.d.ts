@@ -11,6 +11,7 @@ export interface State {
   };
   userSignUp: {
     isLoading: boolean;
+    successMessage: string;
     errorMessage: string;
   };
   profile: {

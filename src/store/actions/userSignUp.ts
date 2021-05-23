@@ -15,8 +15,9 @@ export const storeUserSignUpIsLoading = (isLoading: boolean): Action<boolean> =>
   payload: isLoading,
 });
 
-export const storeUserSignUpSuccess = (): Action => ({
+export const storeUserSignUpSuccess = (successMessage: string): Action<string> => ({
   type: STORE_USER_SIGNUP_SUCCESS,
+  payload: successMessage,
 });
 
 export const storeUserSignUpFail = (errorMsg: string): Action<string> => ({

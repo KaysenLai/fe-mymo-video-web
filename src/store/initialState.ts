@@ -27,6 +27,7 @@ const initialSate = {
   },
   userSignUp: {
     isLoading: false,
+    successMessage: '',
     errorMessage: '',
   },
   profile: {

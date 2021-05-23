@@ -101,7 +101,7 @@ const SignUpPage: React.FC = (props: any) => {
   const userLogin = useSelector((state: State) => state.userLogin);
   const userSignUp = useSelector((state: State) => state.userSignUp);
   const { isAuthenticated } = userLogin;
-  const { isLoading, errorMessage } = userSignUp;
+  const { isLoading, errorMessage, successMessage } = userSignUp;
   const profile = useSelector((state: State) => state.profile);
 
   useEffect(() => {
@@ -212,6 +212,7 @@ const SignUpPage: React.FC = (props: any) => {
     <>
       <Loading isLoading={isLoading} />
       {errorMessage !== '' && <MymoMessage msg={errorMessage} severity="error" />}
+      {successMessage !== '' && <MymoMessage msg={successMessage} severity="success" />}
       <Grid container component="main" className={classes.root}>
         <Grid item xs={12} sm={8} md={6} lg={5}>
           <Box className={classes.box}>

@@ -13,6 +13,7 @@ import Loading from '../components/Loading';
 import MymoMessage from '../components/MymoMessage';
 import axios from 'axios';
 import { apiForgetPassword } from '../api/api';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,13 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: '200px',
     marginTop: theme.spacing(2),
+  },
+  divider: {
+    width: '100%',
+    marginTop: '20px',
+  },
+  link: {
+    width: '100%',
   },
   text: {
     marginTop: theme.spacing(3),
@@ -133,10 +141,17 @@ const ForgetPage: React.FC = (props: any) => {
                 Reset password
               </Button>
             </form>
-            <Link to="signin">
-              <Typography className={classes.text} variant="body1">
+            <Divider variant="middle" className={classes.divider} />
+            <Link to="/signin" className={classes.link}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                color="primary"
+                className={`${classes.button} btn-grey`}
+              >
                 Go to sign in page
-              </Typography>
+              </Button>
             </Link>
           </Box>
         </Grid>

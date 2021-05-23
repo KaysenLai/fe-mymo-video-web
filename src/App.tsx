@@ -5,6 +5,7 @@ import SignUpPage from './pages/SignUpPage';
 import { Switch, Route } from 'react-router-dom';
 import VerifyPage from './pages/VerifyPage';
 import ForgetPage from './pages/ForgetPage';
+import ResetPage from './pages/ResetPage';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/verify/:token" component={VerifyPage} />
         <Route exact path="/forget" component={ForgetPage} />
+        <Route exact path="/reset/:token" component={ResetPage} />
         <Route path="/" component={WithNavContainer} />
       </Switch>
     </>

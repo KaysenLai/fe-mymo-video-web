@@ -5,6 +5,7 @@ export const apiUserGoogleLogin = (): string => `${baseUrl}/user/googlelogin`;
 export const apiUserSignUp = (): string => `${baseUrl}/user/signup`;
 export const apiVerifyAccount = (token: string): string => `${baseUrl}/user/verify/${token}`;
 export const apiForgetPassword = (email: string): string => `${baseUrl}/user/forget/${email}`;
+export const apiResetPassword = (): string => `${baseUrl}/user/reset`;
 
 export const apiMyProfile = (): string => `${baseUrl}/user/myprofile`;
 export const apiUpdateUserInfo = (): string => `${baseUrl}/user`;

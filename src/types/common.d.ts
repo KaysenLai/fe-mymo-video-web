@@ -28,3 +28,8 @@ export interface SignUpInfo {
   email: string;
   password: string;
 }
+
+export interface ResetInfo {
+  token: string;
+  password: string;
+}

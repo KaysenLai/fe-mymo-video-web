@@ -1,12 +1,13 @@
 import React from 'react';
 import MainNav from '../components/MainNav';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import HomePage from './HomePage';
 import ProfilePage from './ProfilePages/ProfilePage';
 import MyProfilePage from './ProfilePages/MyProfilePage';
 
 import ProtectedRoute from '../routes/ProtectedRoute';
 import StarPage from './StarPage';
+import VideoPage from './VideoPage';
 
 const WithNavContainer: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const WithNavContainer: React.FC = () => {
       <ProtectedRoute exact path="/profile" redirectTo="/signin" component={MyProfilePage} />
       <Route path="/profile/:userId" component={ProfilePage} />
       <Route path="/star" component={StarPage} />
+      <Route exact path="/video/:videoId" component={VideoPage} />
     </>
   );
 };

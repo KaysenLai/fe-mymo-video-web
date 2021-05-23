@@ -16,6 +16,7 @@ import { requestGoogleUserLogin, requestUserLogin, storeUserLoginIsLoading } fro
 import { State } from '../types/state';
 import MymoMessage from '../components/MymoMessage';
 import Loading from '../components/Loading';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,17 @@ const useStyles = makeStyles((theme) => ({
   },
   googleBtnWrap: {
     width: '100%',
+  },
+  text: {
+    marginTop: theme.spacing(2),
+    color: theme.palette.grey[300],
+    textAlign: 'center',
+    transition: 'color 0.3s ease',
+    cursor: 'pointer',
+
+    '&:hover': {
+      color: theme.palette.primary.light,
+    },
   },
 }));
 
@@ -196,6 +208,11 @@ const SignInPage: React.FC = (props: any) => {
               >
                 Sign In
               </Button>
+              <Link to="/forget">
+                <Typography className={classes.text} variant="body1">
+                  Forget your password?
+                </Typography>
+              </Link>
             </form>
             <Divider variant="middle" className={classes.divider} />
             <GoogleLogin

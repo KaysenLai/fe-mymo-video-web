@@ -5,8 +5,12 @@ import baseUrl from '../config/apis';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../assets/theme';
 import _ from 'lodash';
+import Comment from '../components/Comment';
 import { Link } from 'react-router-dom';
 import MymoAvatar from '../components/MymoAvatar';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { authAxios } from '../api/axios';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,6 +32,7 @@ const useStyles = makeStyles(() => ({
   commentWrap: {
     flex: 1,
     minWidth: '500px',
+    position: 'relative',
     // backgroundColor: 'yellow',
   },
   notFound: {
@@ -37,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
   img: {
     width: '100%',
-    height: '100%',
+    height: '90%',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -47,18 +52,19 @@ const useStyles = makeStyles(() => ({
   author: {
     width: '100%',
     position: 'absolute',
-    bottom: '0',
+    top: '0',
+    zIndex: 2,
     padding: '8px 20px',
   },
   authorMask: {
     width: '100%',
     position: 'absolute',
-    bottom: '0',
+    top: '0',
     height: '70px',
     transition: 'all 0.5s ease',
     opacity: 0.8,
     backgroundImage:
-      'linear-gradient(180deg, rgba(158, 31, 218, 0) 0%, rgba(158, 31, 218, 0.60) 53.99%, rgba(212, 63, 141, 0.80) 100%)',
+      'linear-gradient(180deg, rgba(212, 63, 141, 0.7) 0%, rgba(158, 31, 218, 0.483) 50.87%, rgba(158, 31, 218, 0) 100%)',
   },
   authorWrapper: {
     display: 'flex',
@@ -67,6 +73,7 @@ const useStyles = makeStyles(() => ({
   textWrapper: {
     marginLeft: '16px',
     color: 'white',
+
     '& p': {
       fontWeight: 600,
       fontSize: '16px',
@@ -77,14 +84,25 @@ const useStyles = makeStyles(() => ({
       lineHeight: '10px',
     },
   },
+  comments: {
+    marginTop: '80px',
+    padding: '10px',
+  },
 }));
 
 const defaultVideo = {
   cover: '',
   video: '',
-  followerNum: 0,
-  fullName: '',
-  avatar: '',
+  description: '',
+  author: {
+    _id: '',
+    followerNum: 0,
+    name: '',
+    avatar: '',
+  },
+  comment: [],
+  form: {},
+  button: {},
 };
 
 const VideoPage: React.FC = (props: any) => {
@@ -92,7 +110,14 @@ const VideoPage: React.FC = (props: any) => {
   const classes = useStyles();
   const videoId = match.params.videoId;
   const [video, setVideo] = useState(defaultVideo);
-  const [found, setFound] = useState(true);
+  const [found, setFound] = useState(false);
+  const [comment, setComment] = useState('');
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    await authAxios.put(`${baseUrl}/video/comment`, { text: comment, videoId });
+    await getVideo();
+  };
 
   const getVideo = async () => {
     try {
@@ -101,6 +126,8 @@ const VideoPage: React.FC = (props: any) => {
         setFound(false);
         return;
       }
+      setFound(true);
+      console.log(data);
       setVideo(data);
     } catch (e) {
       console.log(e);
@@ -125,19 +152,49 @@ const VideoPage: React.FC = (props: any) => {
             <video className={classes.video} controls>
               <source src={video.video} type="video/mp4" />
             </video>
-            {/*<div className={classes.img} style={{ backgroundImage: `url(${video.cover})` }} />*/}
           </div>
           <div className={classes.commentWrap}>
             <div className={classes.author}>
-              <Link to="/signin" className={classes.authorWrapper}>
-                <MymoAvatar avatarSrc={video.avatar} fullName={video.fullName} />
+              <Link to={`/profile/${video.author._id}`} className={classes.authorWrapper}>
+                <MymoAvatar avatarSrc={video.author.avatar} fullName={video.author.name} />
                 <div className={classes.textWrapper}>
-                  <p>{video.fullName}</p>
-                  <span>{video.followerNum} Followers</span>
+                  <p>{video.author.name}</p>
+                  <span>{video.author.followerNum} Followers</span>
                 </div>
               </Link>
             </div>
             <div className={classes.authorMask} />
+            <div className={classes.comments}>
+              <div>{video.description}</div>
+              {video.comment.map((item: any, index: number) => (
+                <Comment
+                  key={index}
+                  text={item.text}
+                  avatar={item.user.avatar}
+                  name={item.user.name}
+                  time={item.time}
+                />
+              ))}
+              <form noValidate method="post" onSubmit={handleSubmit}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  label="Write Comment"
+                  name="comment"
+                  multiline
+                  rows={4}
+                  value={comment}
+                  onChange={(e: any) => {
+                    setComment(e.target.value);
+                  }}
+                />
+
+                <Button type="submit" fullWidth variant="contained" size="large" color="primary">
+                  Comment
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       )}

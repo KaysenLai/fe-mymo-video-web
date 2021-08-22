@@ -127,7 +127,6 @@ const VideoPage: React.FC = (props: any) => {
         return;
       }
       setFound(true);
-      console.log(data);
       setVideo(data);
     } catch (e) {
       console.log(e);

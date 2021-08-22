@@ -6,7 +6,8 @@ import theme from '../assets/theme';
 import { Link } from 'react-router-dom';
 import { url } from 'inspector';
 import MymoMessage from './MymoMessage';
-
+import HoverVideoPlayer from 'react-hover-video-player';
+import LoadingSvg from '../assets/img/loading.svg'
 const useStyles = makeStyles(() => ({
   root: {
     width: '32%',
@@ -21,6 +22,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   img: {
+    position:'relative',
     width: '100%',
     height: '340px',
     backgroundRepeat: 'no-repeat',
@@ -60,6 +62,12 @@ const useStyles = makeStyles(() => ({
       lineHeight: '10px',
     },
   },
+  loading:{
+    position: 'absolute',
+    top:'30%',
+    left:'50%',
+    transform:'translate(-50%,-50%)'
+  }
 }));
 
 interface VideoCardProps {
@@ -68,6 +76,7 @@ interface VideoCardProps {
   fullName: string;
   followerNum: number;
   coverUrl: string;
+  videoSrc:string
 }
 
 const VideoCard: React.FC<VideoCardProps> = (props) => {
@@ -77,18 +86,38 @@ const VideoCard: React.FC<VideoCardProps> = (props) => {
   return (
     <div className={classes.root}>
       <Link to={`/video/${_id}`}>
-        <div className={classes.img} style={style} />
-        <div className={classes.authorMask} />
+        <HoverVideoPlayer
+            restartOnPaused={false}
+            videoSrc={props.videoSrc}
+            loop = { true }
+            pausedOverlay={
+              <div>
+                {
+                  coverUrl ? (
+                      <div className={classes.img} style={style}>
+                        <div className={classes.authorMask}>
+                          <div className={classes.author}>
+                            <Link to="/signin" className={classes.wrapper}>
+                              <MymoAvatar avatarSrc={avatar} fullName={fullName} />
+                              <div className={classes.textWrapper}>
+                                <p>{fullName}</p>
+                                <span>{followerNum} Followers</span>
+                              </div>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                  ) : null
+                }
+              </div>
+            }
+            loadingOverlay={
+              <div className={classes.loading}>
+                <img width={"80px"} height={"80px"} src={LoadingSvg}/>
+              </div>
+            }
+        />
       </Link>
-      <div className={classes.author}>
-        <Link to="/signin" className={classes.wrapper}>
-          <MymoAvatar avatarSrc={avatar} fullName={fullName} />
-          <div className={classes.textWrapper}>
-            <p>{fullName}</p>
-            <span>{followerNum} Followers</span>
-          </div>
-        </Link>
-      </div>
     </div>
   );
 };

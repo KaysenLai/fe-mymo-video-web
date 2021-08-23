@@ -39,6 +39,7 @@ const HomePage: React.FC = () => {
               followerNum={item.author.followerNum}
               fullName={item.author.name}
               key={index}
+              videoSrc={item.video}
             />
           ))}
         </div>

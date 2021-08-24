@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     // backgroundColor: 'wheat',
   },
-  videoBackground:{
+  videoBackground: {
     position: 'absolute',
     width: '10%',
     height: '10%',
@@ -34,22 +34,22 @@ const useStyles = makeStyles(() => ({
     top: '50%',
     transform: 'scale(11)',
     opacity: 0.3,
-    zIndex: -1
+    zIndex: -1,
   },
   backgroundImg: {
-    wdith: "100%",
-    height: "100%",
-    objectFit: 'cover'
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
   videoBrowse: {
-    wdith: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     display: 'flex',
   },
   video: {
     // width: '100%',
     height: '100%',
-    margin: 'auto'
+    margin: 'auto',
   },
   commentWrap: {
     flex: 1,
@@ -161,8 +161,8 @@ const VideoPage: React.FC = (props: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(video)
-  }, [video])
+    console.log(video);
+  }, [video]);
 
   return (
     <>

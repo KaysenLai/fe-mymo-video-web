@@ -25,9 +25,31 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     // backgroundColor: 'wheat',
   },
+  videoBackground:{
+    position: 'absolute',
+    width: '10%',
+    height: '10%',
+    filter: 'blur(2px)',
+    left: '50%',
+    top: '50%',
+    transform: 'scale(11)',
+    opacity: 0.3,
+    zIndex: -1
+  },
+  backgroundImg: {
+    wdith: "100%",
+    height: "100%",
+    objectFit: 'cover'
+  },
+  videoBrowse: {
+    wdith: "100%",
+    height: "100%",
+    display: 'flex',
+  },
   video: {
-    width: '100%',
+    // width: '100%',
     height: '100%',
+    margin: 'auto'
   },
   commentWrap: {
     flex: 1,
@@ -138,6 +160,10 @@ const VideoPage: React.FC = (props: any) => {
     getVideo();
   }, []);
 
+  useEffect(() => {
+    console.log(video)
+  }, [video])
+
   return (
     <>
       {!found && (
@@ -148,9 +174,14 @@ const VideoPage: React.FC = (props: any) => {
       {found && (
         <div className={classes.root}>
           <div className={classes.videoWrap}>
-            <video className={classes.video} controls>
-              <source src={video.video} type="video/mp4" />
-            </video>
+            <div className={classes.videoBackground}>
+              <img className={classes.backgroundImg} src={`${video.cover}`} />
+            </div>
+            <div className={classes.videoBrowse}>
+              <video className={classes.video} controls>
+                <source src={video.video} type="video/mp4" />
+              </video>
+            </div>
           </div>
           <div className={classes.commentWrap}>
             <div className={classes.author}>

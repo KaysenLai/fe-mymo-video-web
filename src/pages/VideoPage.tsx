@@ -166,11 +166,7 @@ const VideoPage: React.FC = (props: any) => {
 
   return (
     <>
-      {!found && (
-        <Container>
-          <p className={classes.notFound}>Video not fount</p>
-        </Container>
-      )}
+      {!found && <Container>{/*<p className={classes.notFound}>//之后换个转圈的loading</p>*/} </Container>}
       {found && (
         <div className={classes.root}>
           <div className={classes.videoWrap}>

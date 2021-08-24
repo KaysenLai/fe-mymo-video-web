@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MymoAvatar from './MymoAvatar';
@@ -8,6 +8,8 @@ import { url } from 'inspector';
 import MymoMessage from './MymoMessage';
 import HoverVideoPlayer from 'react-hover-video-player';
 import LoadingSvg from '../assets/img/loading.svg'
+import { useRef } from 'react';
+import { useEffect } from 'react';
 const useStyles = makeStyles(() => ({
   root: {
     width: '32%',
@@ -80,21 +82,31 @@ interface VideoCardProps {
 }
 
 const VideoCard: React.FC<VideoCardProps> = (props) => {
+  const [coverImageHeight,setCoverImageHeight] = useState<number | undefined>(0)
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const coverImageRef = useRef<HTMLDivElement | null>(null);
   const { _id, avatar, followerNum, fullName, coverUrl } = props;
   const classes = useStyles();
   const style = { backgroundImage: `url(${coverUrl})` };
+  useLayoutEffect(() => {
+    setCoverImageHeight(document?.querySelector(`.${classes.img}`)?.clientHeight)
+  },[props.videoSrc])
   return (
     <div className={classes.root}>
       <Link to={`/video/${_id}`}>
         <HoverVideoPlayer
+            videoRef={videoRef}
             restartOnPaused={false}
             videoSrc={props.videoSrc}
             loop = { true }
+            videoStyle = { {
+              transform: `translate(0,calc((-100% + ${coverImageHeight}px) / 2))`
+            } }
             pausedOverlay={
               <div>
                 {
                   coverUrl ? (
-                      <div className={classes.img} style={style}>
+                      <div ref = {coverImageRef} className={classes.img} style={style}>
                         <div className={classes.authorMask}>
                           <div className={classes.author}>
                             <Link to="/signin" className={classes.wrapper}>
@@ -113,7 +125,7 @@ const VideoCard: React.FC<VideoCardProps> = (props) => {
             }
             loadingOverlay={
               <div className={classes.loading}>
-                <img width={"80px"} height={"80px"} src={LoadingSvg}/>
+                <img width={"60px"} height={"60px"} src={LoadingSvg}/>
               </div>
             }
         />

@@ -11,6 +11,7 @@ import MymoAvatar from '../components/MymoAvatar';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { authAxios } from '../api/axios';
+import VideoPlayer from '../components/VideoPlayer';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,7 +48,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
   video: {
-    // width: '100%',
     height: '100%',
     margin: 'auto',
   },
@@ -160,10 +160,6 @@ const VideoPage: React.FC = (props: any) => {
     getVideo();
   }, []);
 
-  useEffect(() => {
-    console.log(video);
-  }, [video]);
-
   return (
     <>
       {!found && <Container>{/*<p className={classes.notFound}>//之后换个转圈的loading</p>*/} </Container>}
@@ -173,11 +169,12 @@ const VideoPage: React.FC = (props: any) => {
             <div className={classes.videoBackground}>
               <img className={classes.backgroundImg} src={`${video.cover}`} />
             </div>
-            <div className={classes.videoBrowse}>
+            {/* <div className={classes.videoBrowse}>
               <video className={classes.video} controls>
                 <source src={video.video} type="video/mp4" />
               </video>
-            </div>
+            </div> */}
+            <VideoPlayer url={video.video}/>
           </div>
           <div className={classes.commentWrap}>
             <div className={classes.author}>

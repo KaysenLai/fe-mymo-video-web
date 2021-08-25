@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   const getAll = async () => {
     const res = await axios.get(`${baseUrl}/video`);
-    setVideos(res.data);
+    setVideos(res.data.data);
   };
 
   useEffect(() => {

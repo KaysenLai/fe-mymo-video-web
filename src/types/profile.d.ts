@@ -16,3 +16,10 @@ export interface IdProfile extends MyProfile {
   isMyself: boolean;
   isFollowing: boolean;
 }
+
+interface IProfileVideoCard {
+  _id: string;
+  cover: string;
+  video: string;
+  likeNum: number;
+}

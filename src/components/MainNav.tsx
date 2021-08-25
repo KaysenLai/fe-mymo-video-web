@@ -44,44 +44,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface NavLink {
-  title: string;
-  path: string;
-}
-
-export type NavLinks = Array<NavLink>;
-
-const navLinks: NavLinks = [
-  { title: 'Home', path: '/' },
-  { title: 'Star', path: '/star' },
-];
-
-const navIndex: any = {
-  home: 0,
-  star: 1,
-};
-
-const findNavIndex = (pathName: string) => {
-  const pathArr = pathName.split('/');
-  const path = pathArr[1];
-  if (path === '') return 0;
-  if (navIndex.hasOwnProperty(path)) return navIndex[path];
-};
-
 const MainNav = () => {
   const classes = useStyles();
   const userLogin = useSelector((state: State) => state.userLogin);
-  const [value, setValue] = React.useState(0);
-  const { pathname } = useLocation();
-  const history = useHistory();
 
-  useMemo(() => {
-    setValue(findNavIndex(pathname));
-  }, [pathname]);
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
-  };
   const { isAuthenticated } = userLogin;
 
   return (
@@ -94,18 +60,6 @@ const MainNav = () => {
                 <img className={classes.logo} src={logo} alt="mymo logo" />
               </Link>
             </Grid>
-            <Tabs value={value} onChange={handleChange} indicatorColor="primary">
-              {navLinks.map((item, index) => (
-                <Tab
-                  className={classes.navTab}
-                  key={index}
-                  label={item.title}
-                  onClick={() => {
-                    history.push(item.path);
-                  }}
-                />
-              ))}
-            </Tabs>
             <Grid item>
               {isAuthenticated && <LogoutButtons />}
               {!isAuthenticated && <LoginButtons />}

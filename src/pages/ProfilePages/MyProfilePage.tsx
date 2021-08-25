@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../types/state';
@@ -9,11 +9,10 @@ import Loading from '../../components/Loading';
 import TabBar from '../../components/Tab/TabBar';
 import TabPanel from '../../components/Tab/TabPanel';
 import UserCard from '../../components/UserCard';
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import ProfileVideoCard from '../../components/Video/ProfileVideoCard';
+import { IProfileVideoCard } from '../../types';
+import Grid from '@material-ui/core/Grid';
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
 const useStyles = makeStyles(() => ({
   info: {
     marginTop: '40px',
@@ -23,29 +22,15 @@ const useStyles = makeStyles(() => ({
 const tabs = ['videos', 'likes', 'followings', 'followers'];
 const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { url } = useRouteMatch();
   const { myProfile, isLoading } = useSelector((state: State) => state.profile);
-  const { name, avatar, description, follower, following, followingNum, followerNum } = myProfile;
+  const { name, avatar, description, video, likeVideo, follower, following, followingNum, followerNum } = myProfile;
   const classes = useStyles();
-  const query = useQuery();
-  const tabName = query.get('tab');
 
   useEffect(() => {
     dispatch(requestMyProfile());
   }, [dispatch]);
 
-  let tabIndex: number = -1;
-  if (tabName === null) {
-    history.push(`${url}/?tab=video`);
-  } else {
-    tabIndex = tabs.indexOf(tabName);
-  }
-
   const [tabNum, setTabNum] = useState(0);
-  useMemo(() => {
-    setTabNum(tabIndex === -1 ? 0 : tabIndex);
-  }, [tabIndex]);
   const theme = useTheme();
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTabNum(newValue);
@@ -65,16 +50,23 @@ const ProfilePage: React.FC = () => {
         isMyProfile={true}
         isFollowing={false}
       />
-      <TabBar tabs={tabs} tabNum={tabNum} handleChange={handleChange} />
+      <TabBar tabs={tabs} tabNum={0} handleChange={handleChange} />
       <TabPanel value={tabNum} index={0} dir={theme.direction}>
-        Videos
+        <Grid container spacing={4}>
+          {video.length &&
+            video.map((item: IProfileVideoCard) => (
+              <Grid xs={3} item key={item.cover}>
+                <ProfileVideoCard _id={item._id} cover={item.cover} video={item.video} likeNum={item.likeNum} />
+              </Grid>
+            ))}
+        </Grid>
       </TabPanel>
       <TabPanel value={tabNum} index={1} dir={theme.direction}>
         Likes
       </TabPanel>
       <TabPanel value={tabNum} index={2} dir={theme.direction}>
         {following !== [] &&
-          following.map((item: any, index: any) => (
+          following.map((item: any, index: number) => (
             <div key={index}>
               <UserCard
                 _id={item._id}

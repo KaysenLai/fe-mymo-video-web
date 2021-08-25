@@ -52,7 +52,7 @@ const ProfilePage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
         isMyProfile={false}
         isFollowing={isFollowing}
       />
-      <TabBar tabs={tabs} tabNum={tabNum} handleChange={handleChange} userId={userId} />
+      <TabBar tabs={tabs} tabNum={tabNum} handleChange={handleChange} />
       <TabPanel value={tabNum} index={0} dir={theme.direction}>
         Videos
       </TabPanel>

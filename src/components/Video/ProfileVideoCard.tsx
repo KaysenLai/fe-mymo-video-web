@@ -32,7 +32,6 @@ const useStyles = makeStyles(() => ({
 const ProfileVideoCard: React.FC<IProfileVideoCard> = (props) => {
   const { _id, cover, video, likeNum } = props;
   const classes = useStyles();
-  const style = { backgroundImage: `url(${cover})` };
 
   return (
     <div className={classes.root}>

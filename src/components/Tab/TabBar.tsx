@@ -24,17 +24,11 @@ interface TabBarProps {
   tabs: string[];
   tabNum: number;
   handleChange: any;
-  userId?: string;
 }
 
 const TabBar: React.FC<TabBarProps> = (props) => {
-  const { tabs, tabNum, handleChange, userId } = props;
-  const history = useHistory();
+  const { tabs, tabNum, handleChange } = props;
   const classes = useStyles();
-  const handleOnClick = (item: string) => {
-    if (userId) history.push(`/profile/${userId}?tab=${item}`);
-    else history.push(`/profile?tab=${item}`);
-  };
 
   return (
     <div className={classes.root}>
@@ -48,14 +42,7 @@ const TabBar: React.FC<TabBarProps> = (props) => {
           aria-label="full width tabs example"
         >
           {tabs.map((item, index) => (
-            <Tab
-              onClick={() => {
-                handleOnClick(item);
-              }}
-              label={item}
-              key={index}
-              {...a11yProps(index)}
-            />
+            <Tab label={item} key={index} {...a11yProps(index)} />
           ))}
         </Tabs>
       </AppBar>

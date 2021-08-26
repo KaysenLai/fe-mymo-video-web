@@ -1,15 +1,12 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MymoAvatar from './MymoAvatar';
 import theme from '../assets/theme';
 import { Link } from 'react-router-dom';
-import { url } from 'inspector';
-import MymoMessage from './MymoMessage';
 import HoverVideoPlayer from 'react-hover-video-player';
-import LoadingSvg from '../assets/img/loading.svg'
+import LoadingSvg from '../assets/img/loading.svg';
 import { useRef } from 'react';
-import { useEffect } from 'react';
 const useStyles = makeStyles(() => ({
   root: {
     width: '32%',
@@ -24,7 +21,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   img: {
-    position:'relative',
+    position: 'relative',
     width: '100%',
     height: '340px',
     backgroundRepeat: 'no-repeat',
@@ -64,12 +61,12 @@ const useStyles = makeStyles(() => ({
       lineHeight: '10px',
     },
   },
-  loading:{
+  loading: {
     position: 'absolute',
-    top:'30%',
-    left:'50%',
-    transform:'translate(-50%,-50%)'
-  }
+    top: '30%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+  },
 }));
 
 interface VideoCardProps {
@@ -78,56 +75,54 @@ interface VideoCardProps {
   fullName: string;
   followerNum: number;
   coverUrl: string;
-  videoSrc:string
+  videoSrc: string;
 }
 
 const VideoCard: React.FC<VideoCardProps> = (props) => {
-  const [coverImageHeight,setCoverImageHeight] = useState<number | undefined>(0)
+  const [coverImageHeight, setCoverImageHeight] = useState<number | undefined>(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const coverImageRef = useRef<HTMLDivElement | null>(null);
   const { _id, avatar, followerNum, fullName, coverUrl } = props;
   const classes = useStyles();
   const style = { backgroundImage: `url(${coverUrl})` };
   useLayoutEffect(() => {
-    setCoverImageHeight(document?.querySelector(`.${classes.img}`)?.clientHeight)
-  },[props.videoSrc])
+    setCoverImageHeight(document?.querySelector(`.${classes.img}`)?.clientHeight);
+  }, [props.videoSrc]);
   return (
     <div className={classes.root}>
       <Link to={`/video/${_id}`}>
         <HoverVideoPlayer
-            videoRef={videoRef}
-            restartOnPaused={false}
-            videoSrc={props.videoSrc}
-            loop = { true }
-            videoStyle = { {
-              transform: `translate(0,calc((-100% + ${coverImageHeight}px) / 2))`
-            } }
-            pausedOverlay={
-              <div>
-                {
-                  coverUrl ? (
-                      <div ref = {coverImageRef} className={classes.img} style={style}>
-                        <div className={classes.authorMask}>
-                          <div className={classes.author}>
-                            <Link to="/signin" className={classes.wrapper}>
-                              <MymoAvatar avatarSrc={avatar} fullName={fullName} />
-                              <div className={classes.textWrapper}>
-                                <p>{fullName}</p>
-                                <span>{followerNum} Followers</span>
-                              </div>
-                            </Link>
-                          </div>
+          videoRef={videoRef}
+          restartOnPaused={false}
+          videoSrc={props.videoSrc}
+          loop={true}
+          videoStyle={{
+            transform: `translate(0,calc((-100% + ${coverImageHeight}px) / 2))`,
+          }}
+          pausedOverlay={
+            <div>
+              {coverUrl ? (
+                <div ref={coverImageRef} className={classes.img} style={style}>
+                  <div className={classes.authorMask}>
+                    <div className={classes.author}>
+                      <Link to="/signin" className={classes.wrapper}>
+                        <MymoAvatar avatarSrc={avatar} fullName={fullName} />
+                        <div className={classes.textWrapper}>
+                          <p>{fullName}</p>
+                          <span>{followerNum} Followers</span>
                         </div>
-                      </div>
-                  ) : null
-                }
-              </div>
-            }
-            loadingOverlay={
-              <div className={classes.loading}>
-                <img width={"60px"} height={"60px"} src={LoadingSvg}/>
-              </div>
-            }
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          }
+          loadingOverlay={
+            <div className={classes.loading}>
+              <img width={'60px'} height={'60px'} src={LoadingSvg} />
+            </div>
+          }
         />
       </Link>
     </div>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface LetterAvatarProps {
-  fullName: string;
+  fullName?: string;
   className?: string;
 }
 
@@ -25,7 +25,7 @@ const LetterAvatar: React.FC<LetterAvatarProps & React.HTMLAttributes<any>> = (p
   const classes = useStyles();
   const { fullName, className, ...rest } = props;
 
-  const letter = fullName.toUpperCase()[0];
+  const letter = fullName?.toUpperCase()[0];
 
   return (
     <Avatar className={`${classes.purple} ${className}`} {...rest}>

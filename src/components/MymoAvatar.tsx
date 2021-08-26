@@ -4,7 +4,7 @@ import { Avatar } from '@material-ui/core';
 
 interface MyAvatarProps {
   avatarSrc: string;
-  fullName: string;
+  fullName?: string;
 }
 
 const MymoAvatar: React.FC<MyAvatarProps & React.HTMLAttributes<any>> = (props) => {

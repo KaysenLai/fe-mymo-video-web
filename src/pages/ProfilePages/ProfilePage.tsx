@@ -31,7 +31,7 @@ const ProfilePage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
 
   useEffect(() => {
     dispatch(requestIdProfile(userId));
-  }, [dispatch, isMyself]);
+  }, [dispatch, userId, isMyself]);
 
   const [tabNum, setTabNum] = useState(0);
   const theme = useTheme();

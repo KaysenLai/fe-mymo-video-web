@@ -221,7 +221,7 @@ export const SearchAutoComplete:React.FC = () => {
                 }
                 {
                     searchPagination > 5 && accountValues.length !== 0 && <Link to="/">
-                        <h3 className={classes.searchResultsMore}>{`查看"${params}"所有结果`}</h3>
+                        <h3 className={classes.searchResultsMore}>{`View all results of"${params}"`}</h3>
                     </Link>
                 }
             </div>

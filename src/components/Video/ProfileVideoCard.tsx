@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '340px',
+    '& video': {
+      height: 'inherit',
+    },
   },
   cover: {
     width: '100%',

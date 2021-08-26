@@ -8,8 +8,7 @@ import LikeNumTag from './LikeNumTag';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
-    height: '340px',
+    width: '25%',
     borderRadius: '6px',
     position: 'relative',
     overflow: 'hidden',
@@ -18,7 +17,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex !important',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '340px',
   },
   cover: {
     width: '100%',
@@ -41,8 +39,13 @@ const useStyles = makeStyles(() => ({
     top: '18px',
   },
 }));
-
-const ProfileVideoCard: React.FC<IProfileVideoCard> = (props) => {
+interface IVideoCard {
+  _id: string;
+  cover: string;
+  video: string;
+  likeNum: number;
+}
+const VideoCard: React.FC<IVideoCard> = (props) => {
   const { _id, cover, video, likeNum } = props;
   const classes = useStyles();
 
@@ -63,4 +66,4 @@ const ProfileVideoCard: React.FC<IProfileVideoCard> = (props) => {
   );
 };
 
-export default ProfileVideoCard;
+export default VideoCard;

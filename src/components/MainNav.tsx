@@ -14,6 +14,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import MymoAvatar from './MymoAvatar';
 import { Tabs } from '@material-ui/core';
 import Tab from '@material-ui/core/Tab';
+import {SearchAutoComplete} from "./SearchAutoComplete";
 
 const useStyles = makeStyles((theme) => ({
   mainNav: {
@@ -59,6 +60,9 @@ const MainNav = () => {
               <Link to="/">
                 <img className={classes.logo} src={logo} alt="mymo logo" />
               </Link>
+            </Grid>
+            <Grid item>
+             <SearchAutoComplete/>
             </Grid>
             <Grid item>
               {isAuthenticated && <LogoutButtons />}

@@ -58,6 +58,7 @@ const VideoCard: React.FC<IVideoCard> = (props) => {
           restartOnPaused={false}
           videoSrc={video}
           loop={true}
+          unloadVideoOnPaused={true}
           pausedOverlay={<div className={classes.cover} style={{ backgroundImage: `url(${cover})` }} />}
           loadingOverlay={<img className={classes.loading} src={loadingSvg} alt="loading svg" />}
         />

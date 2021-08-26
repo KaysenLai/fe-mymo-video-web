@@ -50,7 +50,7 @@ const ProfilePage: React.FC = () => {
         isMyProfile={true}
         isFollowing={false}
       />
-      <TabBar tabs={tabs} tabNum={0} handleChange={handleChange} />
+      <TabBar tabs={tabs} tabNum={tabNum} handleChange={handleChange} />
       <TabPanel value={tabNum} index={0} dir={theme.direction}>
         <Grid container spacing={4}>
           {video.length &&

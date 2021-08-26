@@ -29,7 +29,7 @@ const VideoPlayer: React.FC<VideoCardProps> = (props) => {
     const {url} = props;
     const classes = useStyles();
     const [pause, setPause] = useState(true);
-    const [volume, setVolume] = React.useState<number | number[]>(50);
+    const [volume, setVolume] = React.useState<number | number[]>(0.5);
     let videoRef = useRef<HTMLVideoElement | any>(null);
 
     // useEffect(() => {
@@ -53,7 +53,8 @@ const VideoPlayer: React.FC<VideoCardProps> = (props) => {
 
     const handleVolume = (event: any, newValue: number | number[]) => {
         setVolume(newValue);
-        //videoRef.current.volume = newValue
+        videoRef.current.volume = newValue
+        console.log(videoRef.current.volume)
     }
     return (
         <div className={classes.videoBrowse}>
@@ -61,14 +62,15 @@ const VideoPlayer: React.FC<VideoCardProps> = (props) => {
                 <source src={url} type="video/mp4" />
             </video>
             <div className={classes.progress}>
-                <LinearProgress variant="determinate" value={50} />
+                <LinearProgress variant="determinate" value={1} />
             </div>
-            {/* <Slider
+            <Slider
                 orientation="vertical"
                 value={volume}
                 aria-labelledby="volume-slider"
                 onChange={handleVolume}
-            /> */}
+                max = {1}
+            />
             <VolumeUpIcon/>
             <img style={{display: pause ? "block" : "none"}} src={videoPlaySvg}/>
         </div>

@@ -6,6 +6,6 @@ export const axiosGetAllStar = async (): Promise<AxiosResponse> => {
   return await axios.get(apiGetAllStar());
 };
 
-export const axiosSearchStar = async (searchText: string): Promise<AxiosResponse> => {
-  return await axios.get(apiSearchStar(), { params: { searchText } });
+export const axiosSearchStar = async (search: string): Promise<AxiosResponse> => {
+  return await axios.get(apiSearchStar(), { params: { search } });
 };

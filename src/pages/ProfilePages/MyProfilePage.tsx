@@ -53,16 +53,29 @@ const ProfilePage: React.FC = () => {
       <TabBar tabs={tabs} tabNum={tabNum} handleChange={handleChange} />
       <TabPanel value={tabNum} index={0} dir={theme.direction}>
         <Grid container spacing={4}>
-          {video.length &&
+          {video.length ? (
             video.map((item: IProfileVideoCard) => (
-              <Grid xs={3} item key={item.cover}>
+              <Grid xs={12} sm={6} md={4} lg={3} item key={item.cover}>
                 <ProfileVideoCard _id={item._id} cover={item.cover} video={item.video} likeNum={item.likeNum} />
               </Grid>
-            ))}
+            ))
+          ) : (
+            <span></span>
+          )}
         </Grid>
       </TabPanel>
       <TabPanel value={tabNum} index={1} dir={theme.direction}>
-        Likes
+        <Grid container spacing={4}>
+          {likeVideo.length ? (
+            video.map((item: IProfileVideoCard) => (
+              <Grid xs={12} sm={6} md={4} lg={3} item key={item.cover}>
+                <ProfileVideoCard _id={item._id} cover={item.cover} video={item.video} likeNum={item.likeNum} />
+              </Grid>
+            ))
+          ) : (
+            <span></span>
+          )}
+        </Grid>
       </TabPanel>
       <TabPanel value={tabNum} index={2} dir={theme.direction}>
         {following !== [] &&

@@ -9,7 +9,7 @@ export function* handleStar(action: Action): any {
     case REQUEST_ALL_STAR: {
       try {
         const { data } = yield call(axiosGetAllStar);
-        yield put(storeAllStar(data));
+        yield put(storeAllStar(data.data));
       } catch (err) {
         console.log(err);
       }
@@ -18,7 +18,7 @@ export function* handleStar(action: Action): any {
     case REQUEST_SEARCH_STAR: {
       try {
         const { data } = yield call(axiosSearchStar, action.payload);
-        yield put(storeAllStar(data));
+        yield put(storeAllStar(data.data));
       } catch (err) {
         console.log(err);
       }

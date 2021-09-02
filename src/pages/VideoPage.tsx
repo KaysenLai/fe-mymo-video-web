@@ -15,7 +15,6 @@ import VideoPlayer from '../components/VideoPlayer';
 
 const useStyles = makeStyles(() => ({
   root: {
-    // padding: theme.spacing(2),
     height: 'calc(100vh - 64px)',
     width: '100%',
     display: 'flex',
@@ -24,7 +23,6 @@ const useStyles = makeStyles(() => ({
     flex: 3,
     overflow: 'hidden',
     position: 'relative',
-    // backgroundColor: 'wheat',
   },
   videoBackground: {
     position: 'absolute',
@@ -51,11 +49,13 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     margin: 'auto',
   },
-  commentWrap: {
+  rightWrap: {
     flex: 1,
     minWidth: '500px',
     position: 'relative',
-    // backgroundColor: 'yellow',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   notFound: {
     fontSize: '40px',
@@ -108,7 +108,20 @@ const useStyles = makeStyles(() => ({
   },
   comments: {
     marginTop: '80px',
-    padding: '10px',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    height: '100px',
+    '& p': {
+      fontSize: '16px',
+      marginBottom: '16px',
+    },
+  },
+  commentsWrap: {
+    flex: 1,
+    padding: '10px 10px 20px 10px',
+    overflowY: 'scroll',
   },
 }));
 
@@ -176,7 +189,7 @@ const VideoPage: React.FC = (props: any) => {
             </div>
             {/*<VideoPlayer url={video.video}/>*/}
           </div>
-          <div className={classes.commentWrap}>
+          <div className={classes.rightWrap}>
             <div className={classes.author}>
               <Link to={`/profile/${video.author._id}`} className={classes.authorWrapper}>
                 <MymoAvatar avatarSrc={video.author.avatar} fullName={video.author.name} />
@@ -188,16 +201,18 @@ const VideoPage: React.FC = (props: any) => {
             </div>
             <div className={classes.authorMask} />
             <div className={classes.comments}>
-              <div>{video.description}</div>
-              {video.comment.map((item: any, index: number) => (
-                <Comment
-                  key={index}
-                  text={item.text}
-                  avatar={item.user.avatar}
-                  name={item.user.name}
-                  time={item.time}
-                />
-              ))}
+              <p>{video.description}</p>
+              <div className={classes.commentsWrap}>
+                {video.comment.map((item: any, index: number) => (
+                  <Comment
+                    key={index}
+                    text={item.text}
+                    avatar={item.user.avatar}
+                    name={item.user.name}
+                    time={item.time}
+                  />
+                ))}
+              </div>
               <form noValidate method="post" onSubmit={handleSubmit}>
                 <TextField
                   variant="outlined"

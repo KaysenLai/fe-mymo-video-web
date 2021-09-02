@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
         <div className={classes.root}>
           <Grid container spacing={4}>
             {videos.map((item: any, index: number) => (
-              <Grid xs={3} item key={item.cover}>
+              <Grid xs={12} sm={6} md={4} lg={3} item key={item.cover}>
                 <VideoCard
                   _id={item._id}
                   avatar={item.author.avatar}

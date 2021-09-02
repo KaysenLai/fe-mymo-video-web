@@ -14,10 +14,9 @@ function useQuery() {
 }
 const StarPage: React.FC = (props) => {
   const star = useSelector((state: State) => state.star);
-  const history = useHistory();
   const dispatch = useDispatch();
   const query = useQuery();
-  const searchTextParams = query.get('searchText');
+  const searchTextParams = query.get('search');
 
   const [searchText, setSearchText] = useState(searchTextParams || '');
 
@@ -29,31 +28,10 @@ const StarPage: React.FC = (props) => {
     }
   }, []);
 
-  const handleSearch = () => {
-    history.push(`/star?searchText=${searchText}`);
-    if (searchText === null) {
-      dispatch(requestAllStar());
-    } else {
-      dispatch(requestSearchStar(searchText));
-    }
-  };
-
   return (
     <>
       <Container>
-        <h2 style={{ margin: '30px 0' }}>Top starts with most followers.</h2>
-        <label>
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e: any) => {
-              setSearchText(e.target.value);
-            }}
-          />
-        </label>
-        <Button color="primary" variant="contained" size="small" onClick={handleSearch}>
-          Search
-        </Button>
+        <h2 style={{ margin: '30px 0' }}>{`Search results of "${searchText}"`}</h2>
         {star !== [] &&
           star.map((item: any, index: any) => (
             <div key={index}>

@@ -60,7 +60,7 @@ const ProfilePage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
         <Grid container spacing={4}>
           {video.length ? (
             video.map((item: IProfileVideoCard) => (
-              <Grid xs={3} item key={item.cover}>
+              <Grid xs={12} sm={6} md={4} lg={3} item key={item.cover}>
                 <ProfileVideoCard _id={item._id} cover={item.cover} video={item.video} likeNum={item.likeNum} />
               </Grid>
             ))
@@ -73,7 +73,7 @@ const ProfilePage: React.FC<RouteComponentProps<MatchParams>> = (props) => {
         <Grid container spacing={4}>
           {likeVideo.length ? (
             video.map((item: IProfileVideoCard) => (
-              <Grid xs={3} item key={item.cover}>
+              <Grid xs={12} sm={6} md={4} lg={3} item key={item.cover}>
                 <ProfileVideoCard _id={item._id} cover={item.cover} video={item.video} likeNum={item.likeNum} />
               </Grid>
             ))

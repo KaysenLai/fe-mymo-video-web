@@ -4,23 +4,22 @@ import axios from 'axios';
 import baseUrl from '../config/apis';
 import VideoCard from '../components/Video/VideoCard';
 import { makeStyles } from '@material-ui/core/styles';
-import Masonry from 'react-masonry-component';
+
 import WelcomeImg from '../components/WelcomeImg';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
-  // root: {
-  //   display: 'flex',
-  // },
+  root: {
+    marginTop: '30px',
+  },
 }));
-const masonryOptions = {
-  transitionDuration: 0,
-};
+
 const HomePage: React.FC = () => {
   const [videos, setVideos] = useState([]);
   const classes = useStyles();
   const getAll = async () => {
     const res = await axios.get(`${baseUrl}/video`);
-    setVideos(res.data.data);
+    setVideos(res.data);
   };
 
   useEffect(() => {
@@ -31,22 +30,24 @@ const HomePage: React.FC = () => {
     <>
       <WelcomeImg />
       <Container>
-        <div>
-          <Masonry className="my-gallery-class" options={masonryOptions}>
+        <div className={classes.root}>
+          <Grid container spacing={4}>
             {videos.map((item: any, index: number) => (
-              <VideoCard
-                _id={item._id}
-                // avatar={item.author.avatar}
-                // coverUrl={item.cover}
-                // followerNum={item.author.followerNum}
-                // fullName={item.author.name}
-                key={index}
-                video={item.video}
-                cover={item.cover}
-                likeNum={item.likeNum}
-              />
+              <Grid xs={3} item key={item.cover}>
+                <VideoCard
+                  _id={item._id}
+                  avatar={item.author.avatar}
+                  followerNum={item.author.followerNum}
+                  fullName={item.author.name}
+                  key={index}
+                  video={item.video}
+                  cover={item.cover}
+                  authorId={item.author._id}
+                  likeNum={item.likeNum}
+                />
+              </Grid>
             ))}
-          </Masonry>
+          </Grid>
         </div>
       </Container>
     </>

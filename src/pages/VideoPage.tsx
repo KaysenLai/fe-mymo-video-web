@@ -169,12 +169,12 @@ const VideoPage: React.FC = (props: any) => {
             <div className={classes.videoBackground}>
               <img className={classes.backgroundImg} src={`${video.cover}`} />
             </div>
-            {/* <div className={classes.videoBrowse}>
+            <div className={classes.videoBrowse}>
               <video className={classes.video} controls>
                 <source src={video.video} type="video/mp4" />
               </video>
-            </div> */}
-            <VideoPlayer url={video.video}/>
+            </div>
+            {/*<VideoPlayer url={video.video}/>*/}
           </div>
           <div className={classes.commentWrap}>
             <div className={classes.author}>

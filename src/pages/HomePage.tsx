@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import WelcomeImg from '../components/WelcomeImg';
 import Grid from '@material-ui/core/Grid';
+import { useDispatch } from 'react-redux';
+import { storeVideoList } from '../store/actions/video';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,8 +19,11 @@ const useStyles = makeStyles(() => ({
 const HomePage: React.FC = () => {
   const [videos, setVideos] = useState([]);
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const getAll = async () => {
     const res = await axios.get(`${baseUrl}/video`);
+    dispatch(storeVideoList(res.data));
     setVideos(res.data);
   };
 

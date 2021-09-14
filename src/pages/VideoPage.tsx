@@ -6,12 +6,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import theme from '../assets/theme';
 import _ from 'lodash';
 import Comment from '../components/Comment';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import MymoAvatar from '../components/MymoAvatar';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { authAxios } from '../api/axios';
 import VideoPlayer from '../components/VideoPlayer';
+import VideoPlayer2 from '../components/VideoPlayer2';
+import { useDispatch, useSelector } from 'react-redux';
+import nextIcon from '../assets/img/videoControl/nextVideo.svg';
+import prevIcon from '../assets/img/videoControl/lastVideo.svg';
+import IconButton from '@material-ui/core/IconButton';
+import { storeVideoIndex } from '../store/actions/video';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -91,6 +97,7 @@ const useStyles = makeStyles(() => ({
   authorWrapper: {
     display: 'flex',
     marginTop: '10px',
+    position: 'relative',
   },
   textWrapper: {
     marginLeft: '16px',
@@ -121,7 +128,21 @@ const useStyles = makeStyles(() => ({
   commentsWrap: {
     flex: 1,
     padding: '10px 10px 20px 10px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
+  },
+  prevNextWrap: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    display: 'flex',
+    flexDirection: 'column',
+    right: '30px',
+  },
+  prevNextBtn: {
+    background: 'rgba(0, 0, 0, 0.3)',
+    backdropFilter: ' blur(10px)',
+    borderRadius: '30px',
+    marginBottom: '10px',
   },
 }));
 
@@ -147,7 +168,8 @@ const VideoPage: React.FC = (props: any) => {
   const [video, setVideo] = useState(defaultVideo);
   const [found, setFound] = useState(false);
   const [comment, setComment] = useState('');
-
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     await authAxios.put(`${baseUrl}/video/comment`, { text: comment, videoId });
@@ -161,8 +183,16 @@ const VideoPage: React.FC = (props: any) => {
         setFound(false);
         return;
       }
-      setFound(true);
       setVideo(data);
+      setFound(true);
+      if (videoList.length) {
+        for (let i = 0; i < videoList.length; i++) {
+          if (videoList[i]._id === videoId) {
+            dispatch(storeVideoIndex(i));
+            break;
+          }
+        }
+      }
     } catch (e) {
       console.log(e);
       setFound(false);
@@ -171,7 +201,23 @@ const VideoPage: React.FC = (props: any) => {
 
   useEffect(() => {
     getVideo();
-  }, []);
+  }, [videoId]);
+
+  const videoStore = useSelector((state: any) => state.video);
+  const { videoList, videoIndex } = videoStore;
+
+  const handlePrev = () => {
+    if (videoIndex === 0) return;
+    const prevId = videoList[videoIndex - 1]._id;
+    dispatch(storeVideoIndex(videoIndex - 1));
+    history.push(`${prevId}`);
+  };
+  const handleNext = () => {
+    if (videoIndex === videoList.length - 1) return;
+    const nextId = videoList[videoIndex + 1]._id;
+    dispatch(storeVideoIndex(videoIndex + 1));
+    history.push(`${nextId}`);
+  };
 
   return (
     <>
@@ -180,14 +226,26 @@ const VideoPage: React.FC = (props: any) => {
         <div className={classes.root}>
           <div className={classes.videoWrap}>
             <div className={classes.videoBackground}>
-              <img className={classes.backgroundImg} src={`${video.cover}`} />
+              <img className={classes.backgroundImg} src={`${video.cover}`} alt="video cover" />
             </div>
             <div className={classes.videoBrowse}>
-              <video className={classes.video} controls>
-                <source src={video.video} type="video/mp4" />
-              </video>
+              <video className={classes.video} src={video.video} controls autoPlay />
             </div>
-            {/*<VideoPlayer url={video.video}/>*/}
+            {videoList.length !== 0 && (
+              <div className={classes.prevNextWrap}>
+                {videoIndex !== 0 && (
+                  <IconButton className={classes.prevNextBtn} size="medium" onClick={() => handlePrev()}>
+                    <img src={prevIcon} alt="prevIcon" />
+                  </IconButton>
+                )}
+                {videoIndex !== videoList.length - 1 && (
+                  <IconButton className={classes.prevNextBtn} size="medium" onClick={() => handleNext()}>
+                    <img src={nextIcon} alt="nextIcon" />
+                  </IconButton>
+                )}
+              </div>
+            )}
+            {/*<VideoPlayer2 url={video.video} />*/}
           </div>
           <div className={classes.rightWrap}>
             <div className={classes.author}>

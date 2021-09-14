@@ -36,6 +36,11 @@ const initialSate = {
     idProfile: idProfile,
   },
   star: [],
+  video: {
+    videoList: [],
+    videoIndex: 0,
+    currentVideo: {},
+  },
 };
 
 export default initialSate;

@@ -178,8 +178,6 @@ const VideoPlayer: React.FC<VideoCardProps> = (props) => {
     console.log(videoRef.current, duration, currentTime, buffered, width);
   }, []);
 
-  useEffect(() => {}, [pause]);
-
   useEffect(() => (liked ? setLikedNum(likedNum + 1) : setLikedNum(likedNum - 1)), [liked]);
 
   const onVideoPress = () => {

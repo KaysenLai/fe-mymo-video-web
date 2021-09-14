@@ -8,6 +8,7 @@ import MyProfilePage from './ProfilePages/MyProfilePage';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import StarPage from './StarPage';
 import VideoPage from './VideoPage';
+import UploadPage from './UploadPage';
 
 const WithNavContainer: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const WithNavContainer: React.FC = () => {
       <ProtectedRoute exact path="/profile" redirectTo="/signin" component={MyProfilePage} />
       <Route path="/profile/:userId" component={ProfilePage} />
       <Route path="/star" component={StarPage} />
+      <Route path="/upload" component={UploadPage} />
       <Route exact path="/video/:videoId" component={VideoPage} />
     </>
   );

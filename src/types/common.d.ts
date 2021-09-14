@@ -33,3 +33,24 @@ export interface ResetInfo {
   token: string;
   password: string;
 }
+
+export interface IVideo {
+  _id: string;
+  description: string;
+  video: string;
+  cover: string;
+  author: IAuthor;
+  comment: IComment[];
+}
+export interface IAuthor {
+  _id: string;
+  avatar: string;
+  name: string;
+}
+export interface IComment {
+  _id: string;
+  user: IAuthor;
+  text: string;
+  time: string;
+}
+export type IVideoList = IVideo[];
